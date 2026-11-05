@@ -1,0 +1,17 @@
+# Erzählerstimme für tools/vertonung.py (kein Geheimnis, darf ins Repo).
+# API-Schlüssel NIE hier eintragen, nur in .env oder als Umgebungsvariable.
+voice_id = "LRpNiUBlcqgIsKUzcrlN"   # Georg: deutsch, alt und rau (trockener Erzähler)
+
+# Modell: noch nicht mit Probe-Satz getestet (siehe log.md).
+# Laut ElevenLabs-Doku (gelesen 2026-11-05):
+#   eleven_v4              Audio-Tags wie [sarcastic] ja, KEIN speed/style, kein SSML
+#   eleven_v3              Audio-Tags ja, kein SSML-<break>
+#   eleven_multilingual_v2 KEINE Audio-Tags (Tags weglassen), speed 0.7-1.2, <break> geht
+# Bis zum Test: multilingual_v2 ohne Tags (bewährt bei Brokey).
+model_id = "eleven_multilingual_v2"
+
+[voice_settings]
+stability = 0.5
+similarity_boost = 0.75
+style = 0.0
+speed = 1.0              # nur multilingual_v2 / v3; wird bei eleven_v4 automatisch weggelassen

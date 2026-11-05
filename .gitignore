@@ -1,0 +1,30 @@
+# Zugangsdaten niemals committen
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Große Rohdateien / Exporte
+*.mp4
+*.mov
+*.webm
+*.wav
+*.mp3
+output/
+export/
+
+# Betriebssystem
+.DS_Store
+Thumbs.db
+
+# SOLLEN ins Repo: Uploads, Bibliothek, fertige Videos, bezahlte Vertonungen, Stimmproben
+!eingang/**
+!bibliothek/**
+!fertig/**
+!videos/*/medien/**
+!proben/**

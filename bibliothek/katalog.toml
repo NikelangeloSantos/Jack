@@ -1,0 +1,59 @@
+# Medien-Katalog: pro Datei Beschreibung, Stichworte (tags) und Hinweise.
+# Neue Dateien trägt `python3 tools/katalog.py einsortieren` automatisch mit leeren Feldern ein.
+# hinweis: Probleme, wegen denen man das Medium nur mit Vorsicht nutzt (Figur verändert sich usw.).
+# Alle Clips: 720x1280, ca. 8 s, mit Umgebungston. Gesichtet am 2026-11-05.
+
+["bilder/jack-observing-burning-city-4098f4a9-2k.jpg"]
+beschreibung = "Jack nachts auf einem Hügel mit Fernglas, blickt auf eine brennende, zerstörte Stadt unter Sternenhimmel. Referenzbild für Flow."
+tags = ["referenz", "nacht", "stadt", "fernglas", "hook", "stil"]
+
+["bilder/person-observing-burning-city-4098f4a9-2k.jpg"]
+beschreibung = "Identisch mit jack-observing-burning-city (gleiche Datei, doppelt hochgeladen)."
+tags = ["duplikat"]
+hinweis = "Byte-gleiches Duplikat. Löschen nur nach Rückfrage beim Nutzer."
+
+["clips/dog-checking-clipboard-in-apartment-2d8929d0-720p.mp4"]
+beschreibung = "Jack mit Pflaster auf der Wange hakt in einem Vorratsraum mit Laternen auf einem Klemmbrett ab, Regale mit Wasser, Radio, Konserven"
+tags = ["klemmbrett", "vorrat", "laterne", "schluss", "pflaster"]
+
+["clips/dog-checking-items-on-clipboard-09347c48-720p.mp4"]
+beschreibung = "Jack mit Pflaster hakt auf Klemmbrett ab, über ihm ploppen Icons in Sprechblasen auf (Konserven, Erste Hilfe, Wasser, Radio, Taschenlampe)"
+tags = ["klemmbrett", "icons", "popup", "schluss"]
+hinweis = "Icons sind im Clip eingebrannt und nicht zur Stimme getimt; kein Bargeld-Icon"
+
+["clips/dog-eating-chip-in-apartment-05feb299-720p.mp4"]
+beschreibung = "Jack sitzt erschöpft zwischen leeren Chipstüten am Boden der verbarrikadierten Wohnung, Nahaufnahme leidender Blick"
+tags = ["chips", "erschoepft", "wohnung", "fakt"]
+hinweis = "Nur 6 s lang"
+
+["clips/dog-packing-chip-bags-into-57c3549f-720p.mp4"]
+beschreibung = "Jack im hellen Supermarkt legt Chipstüten in einen Einkaufswagen"
+tags = ["chips", "supermarkt", "einkaufswagen", "hook"]
+hinweis = "Wagen ist schon voll mit Tüten"
+
+["clips/dog-pushing-shopping-cart-in-cf8e0a3c-720p.mp4"]
+beschreibung = "Jack rennt mit Einkaufswagen durch einen verwüsteten Supermarkt, wirft Chipstüten hinein"
+tags = ["chips", "supermarkt", "einkaufswagen", "sprint", "hook"]
+hinweis = "Tüten erscheinen von selbst im Wagen (Prompt sagte 'overflowing cart')"
+
+["clips/jack-checking-empty-fuel-pump-84539beb-720p.mp4"]
+beschreibung = "Jack an einer verlassenen Tankstelle in der Abenddämmerung prüft eine leere Zapfsäule, Nahaufnahme"
+tags = ["tankstelle", "benzin", "daemmerung", "fakt"]
+hinweis = "Am Ende werden die Ohren spitz und das Gesicht ändert sich (ab ca. 6 s nicht verwenden)"
+
+["clips/jack-filling-glass-with-water-07027425-720p.mp4"]
+beschreibung = "Jack hält ein Glas unter den Küchenwasserhahn, Wasser läuft, dann skeptischer Blick"
+tags = ["wasser", "kueche", "wasserhahn", "fakt"]
+
+["clips/jack-finds-water-bottle-in-ef50b4d4-720p.mp4"]
+beschreibung = "Jack im dunklen, geplünderten Supermarkt findet eine Wasserflasche, dann erschrockene Nahaufnahme"
+tags = ["wasser", "supermarkt", "nacht", "eskalation"]
+hinweis = "Am Ende spitze Ohren, anderes Gesicht (ab ca. 6 s nicht verwenden)"
+
+["clips/jack-observing-binocular-city-43b7385e-720p.mp4"]
+beschreibung = "Jack holt nachts etwas aus einem SUV-Kofferraum, schaut dann mit Fernglas auf die brennende Stadt, Fernglas-Sicht"
+tags = ["nacht", "stadt", "fernglas", "auto", "hook"]
+
+["clips/jack-searches-hospital-medical-c-d913c2d0-720p.mp4"]
+beschreibung = "Jack geht durch einen verlassenen Krankenhausflur und öffnet einen Medikamentenschrank, nimmt eine Dose"
+tags = ["medikamente", "krankenhaus", "flur", "fakt"]

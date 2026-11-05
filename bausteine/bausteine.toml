@@ -1,0 +1,90 @@
+# Maschinenlesbare Bausteine fuer die Jack-Pipeline (tools/jack.py).
+# Diese Datei ist die Quelle der Wahrheit fuer Figur und Look.
+# [flow] enthaelt die verbindliche Prompt-Vorlage des Nutzers WOERTLICH.
+# `python3 tools/jack.py pruefe-bausteine` meldet, wenn Pflichtangaben fehlen.
+#
+# Mimik, Aktion, Kamera, Stimmung, Booster: in thema.toml entweder den NAMEN eines
+# Bausteins eintragen oder einen eigenen englischen Satz (mit Leerzeichen).
+
+[flow]
+intro = '''Use the reference image for Jack's exact appearance. Vertical 9:16 2D hand-drawn animated scene in a dark post-apocalyptic comic style, with clean black outlines, flat colors, soft cel shading and detailed painted backgrounds.'''
+character = '''Jack is a teenage anthropomorphic golden retriever with a slim human body, floppy ears, golden fur and a long fluffy tail. He always wears a dark red varsity jacket with white sleeves and red-white striped trim, a dark gray T-shirt, blue jeans and white sneakers.'''
+schluss = '''Keep the character design and outfit consistent. Smooth 2D animation, no 3D look, no photorealism, no text, no logos, no subtitles, no watermark, no blood or gore. Ambient sound only, no speech, no music.'''
+
+# Pflichtmerkmale der Figur (aus CLAUDE.md). pruefe-bausteine sucht sie in [flow].character.
+[figur]
+pflicht = ["teenage", "golden retriever", "slim human body", "floppy ears", "golden fur",
+           "long fluffy tail", "dark red varsity jacket", "white sleeves", "red-white striped trim",
+           "dark gray T-shirt", "blue jeans", "white sneakers"]
+
+# Fehlerbehebung: NUR anhaengen, wenn ein Clip genau diesen Fehler hatte (korrektur = [...]).
+# Keine langen Regel-Listen als Standard, das hat die Atmosphaere verschlechtert.
+[korrektur]
+ohren = '''His ears stay soft, floppy and hanging down the whole time.'''
+hande = '''His hands keep their furry human shape with five fingers.'''
+schuhe = '''He keeps his white sneakers on, never barefoot.'''
+schwanz = '''His long fluffy tail stays visible and attached.'''
+kein_text = '''All packaging is plain and unlabeled.'''
+kein_auftauchen = '''Nothing appears out of nowhere; objects only move when someone moves them.'''
+
+# Jack's expression
+[mimik]
+ahnungslos_stolz = '''proud, smug grin, chest puffed out, completely sure his plan is genius'''
+entschlossen = '''wide eyes, determined grin, tongue slightly sticking out, full of energy'''
+hoffnung_entsetzen = '''hopeful at first, then slowly horrified, ears drooping'''
+erschoepft = '''exhausted, dry-mouthed, empty stare, ears hanging low'''
+angst_erstarrt = '''relieved for a second, then frozen with fear, eyes wide, holding his breath'''
+konzentriert = '''focused and calm, a small sheepish but confident smile'''
+ertappt = '''caught off guard, glances at the camera for a beat, awkward smile'''
+panik = '''eyes wide, mouth open, ears pulled back, pure panic'''
+
+# Kamera: lebendig, Bewegung erwuenscht. Keine feste Kamera als Standard.
+[kamera]
+fahrt_vorne = '''Fast tracking shot moving backward in front of him, slight shake from the speed.'''
+langsam_ran = '''Slow push-in from a medium shot toward his face.'''
+von_unten_hoch = '''Low-angle shot, slow push-in, then a gentle tilt up.'''
+ueber_schulter = '''Over-the-shoulder shot that slowly drifts around to his face.'''
+handkamera = '''Subtle handheld drift, as if a documentary camera is following him.'''
+umkreisen = '''Slow half orbit around him.'''
+kran_hoch = '''Starts close, then slowly cranes up and away to reveal the room.'''
+
+# Mood and lighting
+[stimmung]
+supermarkt_chaos = '''Cold flickering fluorescent light, dust in the air, hectic and tense with a comic edge.'''
+wohnung_gold = '''Warm golden late-afternoon light falling through gaps between the boards, dust floating, ironic calm.'''
+kueche_grau = '''Grey, muted daylight through boarded windows, oppressive silence.'''
+daemmerung_blau = '''Dim bluish dusk light, long soft shadows, tired and quiet.'''
+nacht_mond = '''Cold blue moonlight, deep shadows, eerie silence, tense.'''
+laterne = '''Warm oil-lantern light, soft shadows, calm and safe for the first time.'''
+
+# Humor-Booster: hoechstens 1 pro Clip, wird an die Aktion angehaengt.
+[booster]
+blick_kamera = '''For a split second he glances straight at the camera.'''
+zeitlupe = '''The key moment plays in brief slow motion.'''
+schatten = '''A huge dark shadow glides slowly over him.'''
+stille = '''Everything goes quiet for a beat; only a single sound remains.'''
+schwanz_wedeln = '''His tail wags proudly.'''
+schwanz_haengt = '''His tail slowly droops to the floor.'''
+
+# Pop-up-Icons (werden im Schnitt eingefuegt, NICHT in Flow). Eigene Bilder ersetzen die
+# gezeichneten Icons: bibliothek/icons/<name>.png (quadratisch, transparenter Hintergrund).
+[icons]
+namen = ["wasser", "konserven", "erste_hilfe", "medikamente", "radio", "taschenlampe", "bargeld"]
+
+[pruefung]
+markennamen = [
+  "Coca-Cola", "Coca Cola", "Pepsi", "Pringles", "Lay's", "Lays", "Chio", "funny-frisch", "Doritos",
+  "Aldi", "Lidl", "Rewe", "Edeka", "Kaufland", "Netto", "Penny", "Walmart", "Costco",
+  "Volvic", "Evian", "Gerolsteiner", "Vittel", "Nike", "Adidas", "Converse", "Vans", "Apple", "Samsung",
+  "Amazon", "Red Bull", "Haribo", "Maggi", "Knorr", "Duracell", "Varta", "The Walking Dead",
+]
+# Kein Blut, keine drastische Gewalt (Prompts und Texte)
+gewalt = ["blood", "bloody", "gore", "wound", "corpse", "dead body", "guts", "bite mark", "decapitat",
+          "Blut", "blutig", "Leiche", "Gedärm", "abgetrennt", "zerfleisch"]
+# Widerspruchs-Pruefung: Zustand "schon voll" in Scene, waehrend Action etwas hineinlegt
+voll_woerter = ["full", "overflowing", "filled", "stuffed", "packed", "loaded", "piled high"]
+fuell_woerter = ["into", "fill", "fills", "filling", "adds", "puts", "places", "stacks", "loads"]
+fest_kamera = ["locked", "static camera", "fixed camera", "camera does not move", "still camera"]
+dauer_min = 30
+dauer_max = 90
+hook_max_sekunden = 3.0

@@ -1,0 +1,107 @@
+# Themen-Datei fuer Video {{NUMMER}}. Ausfuellen, dann:
+#   python3 tools/jack.py baue videos/{{NUMMER}}-{{SLUG}}
+#
+# Texte fuers Video (sprechertext, einblendtext): Deutsch. Flow-Felder (scene, action, camera, mood, expression): Englisch.
+# Aufbau (teil): hook, falscher_plan, fakt, eskalation, schluss  (Schluss endet mit Frage an die Zuschauer)
+# camera / mood / expression: Name aus bausteine/bausteine.toml ([kamera], [stimmung], [mimik]) ODER eigener Satz.
+# booster: hoechstens 1 Name aus [booster]. korrektur: nur wenn ein Clip genau diesen Fehler hatte.
+# Prompt-Regeln: pro Clip eine Hauptaktion; Startzustand beschreiben (leerer Wagen, wenn er erst gefuellt wird);
+#   keine Ziffern, kein Text, keine Marken; lebendige Kamera, keine feste Kamera als Standard.
+# chance = Pflicht in jeder Szene (0-100), wird im Schnitt als "Überlebenschance: X %" eingeblendet.
+# popup = Icons, die im Schnitt genau beim gesprochenen Wort erscheinen (Namen: bausteine [icons]).
+
+[video]
+nummer = "{{NUMMER}}"
+titel = "{{TITEL}}"
+thema = "TODO"
+lerneffekt = "TODO echtes Vorsorge-/Überlebenswissen"
+ton = "trockener, rauer Erzähler, Understatement; Jack macht die Fehler"
+referenzbild = "bibliothek/bilder/jack-observing-burning-city-4098f4a9-2k.jpg"
+caption = "TODO"
+hashtags = ["#zombieapokalypse", "#vorsorge", "#survival"]
+
+# Jede Rechnung wird automatisch nachgerechnet.
+[[rechnung]]
+beschreibung = "TODO"
+ausdruck = "1 * 1"
+ergebnis = 1
+einheit = ""
+hinweis = ""
+
+# Jede Sachbehauptung: status = "geprueft" (mit quelle + beleg) oder "offen".
+[[fakt]]
+szene = "01"
+text = "TODO"
+status = "offen"
+quelle = ""
+beleg = ""
+
+[[szene]]
+name = "Hook"
+teil = "hook"
+clip_dauer = 8
+vorlauf = 0.0
+bild_de = "TODO kurze deutsche Beschreibung"
+scene = '''TODO where, what is visible at the START of the clip'''
+action = '''TODO one main action'''
+camera = "fahrt_vorne"
+mood = "supermarkt_chaos"
+expression = "entschlossen"
+sprechertext = '''TODO'''
+einblendtext = ""
+chance = 50
+
+[[szene]]
+name = "Falscher Plan"
+teil = "falscher_plan"
+clip_dauer = 8
+bild_de = "TODO"
+scene = '''TODO'''
+action = '''TODO'''
+camera = "langsam_ran"
+mood = "wohnung_gold"
+expression = "ahnungslos_stolz"
+sprechertext = '''TODO'''
+chance = 60
+
+[[szene]]
+name = "Fakt"
+teil = "fakt"
+clip_dauer = 8
+bild_de = "TODO"
+scene = '''TODO'''
+action = '''TODO'''
+camera = "langsam_ran"
+mood = "kueche_grau"
+expression = "hoffnung_entsetzen"
+sprechertext = '''TODO'''
+chance = 30
+
+[[szene]]
+name = "Eskalation"
+teil = "eskalation"
+clip_dauer = 8
+bild_de = "TODO"
+scene = '''TODO'''
+action = '''TODO'''
+camera = "handkamera"
+mood = "nacht_mond"
+expression = "panik"
+sprechertext = '''TODO'''
+chance = 5
+
+[[szene]]
+name = "Schluss"
+teil = "schluss"
+clip_dauer = 8
+bild_de = "TODO"
+scene = '''TODO (empty space above Jack's head, if there are pop-ups)'''
+action = '''TODO'''
+camera = "langsam_ran"
+mood = "laterne"
+expression = "konzentriert"
+sprechertext = '''TODO ... Wasser ... Was fehlt bei dir?'''
+chance = 85
+popup = [
+  { icon = "wasser", wort = "Wasser" },
+]
