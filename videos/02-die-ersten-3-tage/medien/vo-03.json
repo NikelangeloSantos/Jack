@@ -1,77 +1,82 @@
 {
- "dauer": 7.036,
- "sprech_start": 0.145,
- "sprech_ende": 6.891,
+ "dauer": 7.755,
+ "sprech_start": 0.075,
+ "sprech_ende": 7.633,
  "woerter": [
   {
    "wort": "Dann",
-   "start": 0.145,
-   "ende": 0.377
+   "start": 0.075,
+   "ende": 0.365
   },
   {
    "wort": "Essen,",
-   "start": 0.459,
-   "ende": 0.83
+   "start": 0.516,
+   "ende": 0.923
   },
   {
    "wort": "das",
-   "start": 0.853,
-   "ende": 0.993
+   "start": 0.946,
+   "ende": 1.096
   },
   {
    "wort": "ohne",
-   "start": 1.074,
-   "ende": 1.283
+   "start": 1.201,
+   "ende": 1.386
   },
   {
    "wort": "Herd",
-   "start": 1.341,
-   "ende": 1.55
+   "start": 1.434,
+   "ende": 1.62
   },
   {
-   "wort": "funktioniert.",
-   "start": 1.596,
-   "ende": 2.363
+   "wort": "geht.",
+   "start": 1.678,
+   "ende": 2.049
   },
   {
-   "wort": "Chips",
-   "start": 2.653,
-   "ende": 2.943
+   "wort": "Jack",
+   "start": 2.328,
+   "ende": 2.537
   },
   {
-   "wort": "zählen",
-   "start": 3.001,
-   "ende": 3.315
+   "wort": "wählt:",
+   "start": 2.582,
+   "ende": 3.036
   },
   {
-   "wort": "nur",
-   "start": 3.338,
-   "ende": 3.466
+   "wort": "Chips.",
+   "start": 3.222,
+   "ende": 3.768
   },
   {
-   "wort": "knapp.",
-   "start": 3.512,
-   "ende": 3.907
+   "wort": "Mutig.",
+   "start": 4.046,
+   "ende": 4.637
   },
   {
    "wort": "Besser:",
-   "start": 4.197,
-   "ende": 4.673
+   "start": 4.975,
+   "ende": 5.496
   },
   {
    "wort": "Konserven.",
-   "start": 4.812,
-   "ende": 5.602
+   "start": 5.601,
+   "ende": 6.264
   },
   {
-   "wort": "Mit",
-   "start": 5.788,
-   "ende": 5.95
+   "wort": "Und",
+   "start": 6.448,
+   "ende": 6.611
+  },
+  {
+   "wort": "ein",
+   "start": 6.681,
+   "ende": 6.762
   },
   {
    "wort": "Dosenöffner.",
-   "start": 6.008,
-   "ende": 6.891
+   "start": 6.809,
+   "ende": 7.633
   }
  ]
 }

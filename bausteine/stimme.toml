@@ -13,7 +13,7 @@ voice_id = "LRpNiUBlcqgIsKUzcrlN"   # Georg: deutsch, alt und rau (trockener Erz
 model_id = "eleven_multilingual_v2"
 
 [voice_settings]
-stability = 0.5
+stability = 0.45         # etwas lebendiger für Georgs ironischen Ton (Folge 02, Überarbeitung)
 similarity_boost = 0.75
-style = 0.0
-speed = 1.1              # nur multilingual_v2 / v3; wird bei eleven_v4 automatisch weggelassen
+style = 0.15             # leichte Betonung/Ironie; höher = übertriebener
+speed = 1.15             # Georg spricht langsam (~13 Zeichen/s bei 1.0); nur multilingual_v2 / v3; wird bei eleven_v4 automatisch weggelassen

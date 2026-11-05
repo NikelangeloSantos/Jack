@@ -4,14 +4,12 @@ _Automatisch erzeugt aus `thema.toml` – Änderungen bitte dort machen und neu 
 
 Diese Liste hakst **du** vor dem Upload ab. Die Pipeline veröffentlicht nichts.
 
-Automatische Prüfung beim letzten Bauen: 
-  - ⚠️ Fakt offen: „Die ersten drei Tage entscheiden.“
-  - ⚠️ Fakt offen: „Chips zählen nur knapp. Besser: Konserven.“
+Automatische Prüfung beim letzten Bauen: keine Probleme gefunden
 
 ## Inhalt
 - [ ] Alle Punkte in `faktencheck.md` geprüft (keine offenen Fakten mehr)
 - [ ] Rechnungen stimmen (automatisch nachgerechnet, trotzdem ansehen)
-- [ ] Echtes Vorsorgewissen drin: Mindestens 3 Tage, besser 10 Tage vorsorgen: 2 Liter Wasser pro Person und Tag, Essen ohne Kochen, Medikamente und Erste-Hilfe-Material, Radio, Taschenlampe mit Ersatzbatterien, Bargeld, Nummern auf Papier, Dokumente griffbereit, mit Nachbarn absprechen.
+- [ ] Echtes Vorsorgewissen drin: Mindestens 3 Tage, besser 10 Tage vorsorgen: 2 Liter Wasser pro Person und Tag, Essen ohne Kochen, Medikamente und Erste-Hilfe-Material zu Hause, Radio, Taschenlampe, Bargeld, Nummern auf Papier, Dokumente griffbereit, Nachbarn einbeziehen.
 - [ ] Schluss mit Frage an die Zuschauer
 - [ ] Einblendung „Überlebenschance: X %“ in jeder Szene sichtbar
 - [ ] Kein Blut, keine drastische Gewalt

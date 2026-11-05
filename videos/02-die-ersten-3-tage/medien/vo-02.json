@@ -1,47 +1,47 @@
 {
- "dauer": 4.302,
- "sprech_start": 0.175,
- "sprech_ende": 4.157,
+ "dauer": 4.378,
+ "sprech_start": 0.168,
+ "sprech_ende": 4.302,
  "woerter": [
   {
-   "wort": "Das",
-   "start": 0.175,
-   "ende": 0.372
-  },
-  {
-   "wort": "Wichtigste",
-   "start": 0.429,
-   "ende": 0.905
-  },
-  {
-   "wort": "zuerst:",
-   "start": 0.976,
-   "ende": 1.625
+   "wort": "Zuerst:",
+   "start": 0.168,
+   "ende": 0.83
   },
   {
    "wort": "Wasser.",
-   "start": 1.788,
-   "ende": 2.357
+   "start": 0.958,
+   "ende": 1.504
   },
   {
    "wort": "Sechs",
-   "start": 2.612,
-   "ende": 2.926
+   "start": 1.84,
+   "ende": 2.131
   },
   {
    "wort": "Liter",
-   "start": 2.984,
-   "ende": 3.24
+   "start": 2.177,
+   "ende": 2.409
   },
   {
    "wort": "pro",
-   "start": 3.298,
-   "ende": 3.437
+   "start": 2.467,
+   "ende": 2.595
   },
   {
    "wort": "Person.",
-   "start": 3.506,
-   "ende": 4.157
+   "start": 2.653,
+   "ende": 3.222
+  },
+  {
+   "wort": "Nicht",
+   "start": 3.466,
+   "ende": 3.698
+  },
+  {
+   "wort": "umdrehen.",
+   "start": 3.768,
+   "ende": 4.302
   }
  ]
 }

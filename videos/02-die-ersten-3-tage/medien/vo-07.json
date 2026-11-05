@@ -1,112 +1,57 @@
 {
- "dauer": 9.784,
- "sprech_start": 0.203,
- "sprech_ende": 9.746,
+ "dauer": 4.679,
+ "sprech_start": 0.139,
+ "sprech_ende": 4.644,
  "woerter": [
   {
-   "wort": "Zu",
-   "start": 0.203,
-   "ende": 0.319
-  },
-  {
-   "wort": "Hause",
-   "start": 0.377,
-   "ende": 0.725
-  },
-  {
-   "wort": "dann:",
-   "start": 0.783,
-   "ende": 1.143
-  },
-  {
-   "wort": "Wichtige",
-   "start": 1.434,
-   "ende": 1.875
-  },
-  {
    "wort": "Nummern",
-   "start": 1.933,
-   "ende": 2.223
+   "start": 0.139,
+   "ende": 0.394
   },
   {
    "wort": "auf",
-   "start": 2.281,
-   "ende": 2.374
+   "start": 0.441,
+   "ende": 0.522
   },
   {
-   "wort": "Papier",
-   "start": 2.444,
-   "ende": 2.85
-  },
-  {
-   "wort": "schreiben,",
-   "start": 2.896,
-   "ende": 3.465
+   "wort": "Papier.",
+   "start": 0.58,
+   "ende": 1.103
   },
   {
    "wort": "Dokumente",
-   "start": 3.628,
-   "ende": 4.232
+   "start": 1.439,
+   "ende": 1.857
   },
   {
-   "wort": "griffbereit",
-   "start": 4.29,
-   "ende": 4.882
-  },
-  {
-   "wort": "legen,",
-   "start": 4.94,
-   "ende": 5.427
-  },
-  {
-   "wort": "mit",
-   "start": 5.683,
-   "ende": 5.822
-  },
-  {
-   "wort": "den",
-   "start": 5.845,
-   "ende": 5.95
+   "wort": "griffbereit.",
+   "start": 1.892,
+   "ende": 2.507
   },
   {
    "wort": "Nachbarn",
-   "start": 5.996,
-   "ende": 6.426
+   "start": 2.751,
+   "ende": 3.111
   },
   {
-   "wort": "absprechen.",
-   "start": 6.484,
-   "ende": 7.192
-  },
-  {
-   "wort": "Und",
-   "start": 7.482,
-   "ende": 7.668
-  },
-  {
-   "wort": "du?",
-   "start": 7.726,
-   "ende": 8.167
+   "wort": "fragen.",
+   "start": 3.158,
+   "ende": 3.552
   },
   {
    "wort": "Was",
-   "start": 8.516,
-   "ende": 8.736
+   "start": 3.703,
+   "ende": 3.866
   },
   {
    "wort": "fehlt",
-   "start": 8.806,
-   "ende": 9.026
+   "start": 3.924,
+   "ende": 4.121
   },
   {
-   "wort": "dir",
-   "start": 9.05,
-   "ende": 9.166
-  },
-  {
-   "wort": "noch?",
-   "start": 9.212,
-   "ende": 9.746
+   "wort": "dir?",
+   "start": 4.144,
+   "ende": 4.644
   }
  ]
 }

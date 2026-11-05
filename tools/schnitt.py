@@ -160,7 +160,7 @@ def untertitel_bloecke(woerter: list[dict]) -> list[tuple[float, float, str]]:
         bloecke.append(akt)
     out = []
     for i, b in enumerate(bloecke):
-        ende = bloecke[i + 1][0]["start"] if i + 1 < len(bloecke) else b[-1]["ende"] + 0.3
+        ende = min(bloecke[i + 1][0]["start"], b[-1]["ende"] + 0.6) if i + 1 < len(bloecke) else b[-1]["ende"] + 0.3
         out.append((b[0]["start"], max(ende, b[-1]["ende"]), "\n".join(zeilen_umbruch(" ".join(x["wort"] for x in b)))))
     return out
 
@@ -256,17 +256,20 @@ def baue_sfx(medien, tempo: float, d: float, cfg: dict, ziel: Path):
     ffmpeg(*eingabe, "-filter_complex", ";".join(ketten + [sfx]), "-map", "[a]", "-c:a", "pcm_s16le", "-ar", "48000", str(ziel))
 
 
-def mische_ton(sfx: Path, stimmen: list[tuple[Path, float]], gesamt: float, cfg: dict, ziel: Path):
-    """Durchgehende Stimmspur (jede vo-NN.wav ab ihrer Startzeit) über den Clip-Ton legen, mit Ducking."""
+def mische_ton(sfx: Path, stimmen: list[tuple[Path, float, float | None, float]], gesamt: float, cfg: dict, ziel: Path):
+    """Durchgehende Stimmspur über den Clip-Ton legen, mit Ducking.
+    stimmen = [(wav, von, bis, versatz)]: Stück von..bis der Datei; Dateizeit 0 liegt bei `versatz` (absolut)."""
     eingabe = ["-i", str(sfx)]
-    for datei, _ in stimmen:
+    for datei, *_ in stimmen:
         eingabe += ["-i", str(datei)]
     if not stimmen:
         ffmpeg(*eingabe, "-c:a", "pcm_s16le", str(ziel))
         return
     f = ""
-    for k, (_, ab) in enumerate(stimmen, 1):
-        f += f"[{k}:a]aresample=48000,aformat=channel_layouts=stereo,adelay={int(max(0, ab) * 1000)}:all=1[s{k}];"
+    for k, (_, von, bis, versatz) in enumerate(stimmen, 1):
+        trim = f"atrim=start={von:.3f}" + (f":end={bis:.3f}" if bis else "")
+        f += (f"[{k}:a]aresample=48000,aformat=channel_layouts=stereo,{trim},asetpts=PTS-STARTPTS,"
+              f"afade=t=in:d=0.01,adelay={int(max(0, versatz + von) * 1000)}:all=1[s{k}];")
     f += "".join(f"[s{k}]" for k in range(1, len(stimmen) + 1))
     f += f"amix=inputs={len(stimmen)}:normalize=0,apad,atrim=duration={gesamt:.3f},asplit=2[st][sc];"
     if cfg["ducking"]:
@@ -334,6 +337,35 @@ def plane(m: Mappe, cfg: dict, medien_dir: Path) -> list[dict]:
         wunsch = t + vorlauf - s.get("vorziehen", 0.0)
         sprech_ab = wunsch if frei_ab is None else max(wunsch, frei_ab + cfg["luecke"])  # erstes Wort, absolut
         sprech_bis = sprech_ab + (s1 - s0)
+        # Anker: ein Wort auf eine Clip-Sekunde legen. Die Stimme wird in der Pause davor getrennt und das
+        # Folgende verschoben (nur später, nie früher; nichts wird gedehnt).
+        versatz = sprech_ab - s0
+        woerter = [dict(w) for w in woerter]
+        segmente, seg_von, schub, warn = [], 0.0, 0.0, []
+        letzter = 0
+        for a in sorted(s.get("anker", []), key=lambda x: x["zeit"]):
+            ziel_w = re.sub(r"\W", "", a["wort"].lower())
+            idx = next((k for k in range(letzter, len(woerter))
+                        if ziel_w and ziel_w in re.sub(r"\W", "", woerter[k]["wort"].lower())), None)
+            if idx is None:
+                warn.append(f"Anker-Wort '{a['wort']}' nicht gefunden")
+                continue
+            natuerlich = versatz + woerter[idx]["start"]
+            mehr = (t + a["zeit"]) - natuerlich
+            if mehr > 0.03:
+                original = woerter[idx]["start"] - schub
+                vorher = (woerter[idx - 1]["ende"] - schub) if idx > 0 else max(0.0, original - 0.05)
+                schnitt = (vorher + original) / 2
+                segmente.append((seg_von, schnitt, versatz + schub))
+                seg_von, schub = schnitt, schub + mehr
+                for w in woerter[idx:]:
+                    w["start"] += mehr
+                    w["ende"] += mehr
+            elif mehr < -0.25:
+                warn.append(f"'{a['wort']}' kommt {-mehr:.1f} s zu spät für den Anker ({a['zeit']} s) – Text davor kürzen")
+            letzter = idx
+        segmente.append((seg_von, None, versatz + schub))
+        sprech_bis += schub
         halten, ueberhang = 0.0, 0.0
         letzte = i == len(m.szenen) - 1
         if s.get("kuerzen"):
@@ -348,8 +380,8 @@ def plane(m: Mappe, cfg: dict, medien_dir: Path) -> list[dict]:
                 halten = ueber - ueberhang
         d += halten
         plan.append(dict(s=s, nn=nn, medien=eintraege, wav=wav, woerter=woerter, d=d, start=t, quelle=quelle,
-                         clip_len=clip_len, versatz=sprech_ab - s0, sprech_ab=sprech_ab, sprech_bis=sprech_bis,
-                         halten=halten, ueberhang=ueberhang))
+                         clip_len=clip_len, versatz=versatz, sprech_ab=sprech_ab, sprech_bis=sprech_bis,
+                         halten=halten, ueberhang=ueberhang, segmente=segmente, warn=warn))
         frei_ab = sprech_bis
         t += d
     return plan
@@ -373,6 +405,10 @@ def schneide(ordner: Path, nur_plan: bool = False, ausgabe: Path | None = None, 
             hinweis += f"  Stimme läuft {p['ueberhang']:.1f} s in die nächste Szene"
         if p["halten"] > 0.05:
             hinweis += f"  ⚠️ TEXT ZU LANG: letztes Bild {p['halten']:.1f} s gehalten -> Kürzung nötig"
+        for w in p["warn"]:
+            hinweis += f"  ⚠️ {w}"
+        if len(p["segmente"]) > 1:
+            hinweis += f"  ({len(p['segmente']) - 1} Anker)"
         print(f"  {p['nn']} {p['start']:5.1f}-{p['start'] + p['d']:5.1f}s  Clip {p['clip_len']:4.1f}s  "
               f"Stimme ({p['quelle']}) {p['sprech_ab']:5.1f}-{p['sprech_bis']:5.1f}s  Chance {p['s'].get('chance')} %"
               f"  {namen}{hinweis}")
@@ -405,7 +441,7 @@ def schneide(ordner: Path, nur_plan: bool = False, ausgabe: Path | None = None, 
             vliste.append(f"file '{vseg}'")
             sliste.append(aseg)
             if p["wav"]:
-                stimmen.append((p["wav"], p["versatz"]))
+                stimmen += [(p["wav"], von, bis, off) for von, bis, off in p["segmente"]]
             print(f"  Szene {p['nn']}: {d:.1f} s" + (f", Clip-Tempo {tempo:.2f}" if tempo < 1 else ""))
 
             # Überlebenschance und Einblendungen (oben, oder unten mit texte_unten = true)
@@ -442,6 +478,8 @@ def schneide(ordner: Path, nur_plan: bool = False, ausgabe: Path | None = None, 
         for k, (a, e, txt) in enumerate(ut):
             if k + 1 < len(ut):
                 e = min(e, ut[k + 1][0] - 0.02)
+            else:
+                e = gesamt  # Schlussfrage bleibt bis zum letzten Bild stehen
             ass.append(f"Dialogue: 0,{ass_zeit(a)},{ass_zeit(e)},Untertitel,,0,0,0,,{ass_text(txt)}\n")
             srt.append(f"{len(srt) + 1}\n{zeit_srt(a)} --> {zeit_srt(e)}\n{txt}\n")
         (tmp / "liste.txt").write_text("\n".join(vliste))

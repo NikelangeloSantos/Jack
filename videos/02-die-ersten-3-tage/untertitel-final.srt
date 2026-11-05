@@ -1,84 +1,107 @@
 1
-00:00:00,000 --> 00:00:01,594
+00:00:00,000 --> 00:00:01,454
 Zombie-Apokalypse.
 
 2
-00:00:01,614 --> 00:00:03,767
-Die ersten drei Tage
-entscheiden.
+00:00:01,474 --> 00:00:02,580
+Tag eins.
 
 3
-00:00:03,787 --> 00:00:06,204
-Das Wichtigste zuerst: Wasser.
+00:00:02,600 --> 00:00:04,562
+Zuerst: Wasser.
 
 4
-00:00:06,224 --> 00:00:07,949
+00:00:04,582 --> 00:00:06,280
 Sechs Liter pro Person.
 
 5
-00:00:07,969 --> 00:00:10,457
-Dann Essen, das ohne Herd
-funktioniert.
+00:00:06,300 --> 00:00:07,436
+Nicht umdrehen.
 
 6
-00:00:10,477 --> 00:00:12,001
-Chips zählen nur knapp.
+00:00:07,750 --> 00:00:09,983
+Dann Essen, das ohne Herd
+geht.
 
 7
-00:00:12,021 --> 00:00:13,592
-Besser: Konserven.
+00:00:10,003 --> 00:00:11,701
+Jack wählt: Chips.
 
 8
-00:00:13,612 --> 00:00:15,015
-Mit Dosenöffner.
+00:00:11,721 --> 00:00:12,630
+Mutig.
 
 9
-00:00:15,680 --> 00:00:18,848
-Deine Medikamente und
-Erste-Hilfe-Material.
+00:00:12,650 --> 00:00:14,103
+Besser: Konserven.
 
 10
-00:00:23,610 --> 00:00:25,227
-Und ein Radio.
+00:00:14,123 --> 00:00:15,608
+Und ein Dosenöffner.
 
 11
-00:00:25,247 --> 00:00:29,337
-Fallen Internet und Mobilfunk
-aus, funktionieren Warn-Apps
+00:00:15,680 --> 00:00:18,562
+Medikamente und
+Erste-Hilfe-Material.
 
 12
-00:00:29,357 --> 00:00:31,987
-nicht mehr, Radiosender aber
-schon.
+00:00:18,582 --> 00:00:20,810
+Die hat man am besten schon zu
+Hause.
 
 13
-00:00:32,007 --> 00:00:35,493
-Dazu eine Taschenlampe mit
-Ersatzbatterien und Bargeld,
+00:00:20,830 --> 00:00:22,362
+Nicht erst im Gruselflur.
 
 14
-00:00:35,513 --> 00:00:39,080
-denn ohne Strom gehen
-Kartenzahlung und Geldautomat
+00:00:23,610 --> 00:00:25,534
+Jack nimmt ein Fernglas mit.
 
 15
-00:00:39,100 --> 00:00:39,687
-nicht.
+00:00:25,760 --> 00:00:29,327
+Besser wäre ein Radio: Ohne
+Netz schweigen Warn-Apps.
 
 16
-00:00:39,707 --> 00:00:43,112
-Zu Hause dann: Wichtige
-Nummern auf Papier schreiben,
+00:00:29,347 --> 00:00:30,681
+Radiosender nicht.
 
 17
-00:00:43,132 --> 00:00:46,966
-Dokumente griffbereit legen,
-mit den Nachbarn absprechen.
+00:00:31,540 --> 00:00:34,171
+Also, die Liste: Wasser.
 
 18
-00:00:46,986 --> 00:00:48,000
-Und du?
+00:00:34,840 --> 00:00:36,820
+Konserven, Erste Hilfe.
 
 19
-00:00:48,020 --> 00:00:49,550
-Was fehlt dir noch?
+00:00:36,840 --> 00:00:37,720
+Radio.
+
+20
+00:00:37,740 --> 00:00:38,660
+Taschenlampe.
+
+21
+00:00:38,680 --> 00:00:39,786
+Und Bargeld.
+
+22
+00:00:39,806 --> 00:00:41,290
+Karten brauchen Strom.
+
+23
+00:00:41,403 --> 00:00:42,683
+Nummern auf Papier.
+
+24
+00:00:42,703 --> 00:00:43,995
+Dokumente griffbereit.
+
+25
+00:00:44,015 --> 00:00:44,947
+Nachbarn fragen.
+
+26
+00:00:44,967 --> 00:00:46,853
+Was fehlt dir?

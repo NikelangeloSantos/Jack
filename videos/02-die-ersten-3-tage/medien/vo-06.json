@@ -1,82 +1,77 @@
 {
- "dauer": 7.877,
- "sprech_start": 0.174,
- "sprech_ende": 7.674,
+ "dauer": 8.44,
+ "sprech_start": 0.093,
+ "sprech_ende": 8.3,
  "woerter": [
   {
-   "wort": "Dazu",
-   "start": 0.174,
-   "ende": 0.476
+   "wort": "Also,",
+   "start": 0.093,
+   "ende": 0.592
   },
   {
-   "wort": "eine",
-   "start": 0.534,
-   "ende": 0.72
+   "wort": "die",
+   "start": 0.708,
+   "ende": 0.812
   },
   {
-   "wort": "Taschenlampe",
-   "start": 0.778,
-   "ende": 1.463
+   "wort": "Liste:",
+   "start": 0.847,
+   "ende": 1.358
   },
   {
-   "wort": "mit",
-   "start": 1.509,
-   "ende": 1.625
+   "wort": "Wasser.",
+   "start": 1.637,
+   "ende": 2.124
   },
   {
-   "wort": "Ersatzbatterien",
-   "start": 1.695,
-   "ende": 2.589
+   "wort": "Konserven,",
+   "start": 2.333,
+   "ende": 3.03
   },
   {
-   "wort": "und",
-   "start": 2.693,
-   "ende": 2.809
+   "wort": "Erste",
+   "start": 3.239,
+   "ende": 3.529
   },
   {
-   "wort": "Bargeld,",
-   "start": 2.879,
-   "ende": 3.576
+   "wort": "Hilfe.",
+   "start": 3.564,
+   "ende": 4.028
   },
   {
-   "wort": "denn",
-   "start": 3.68,
-   "ende": 3.843
+   "wort": "Radio.",
+   "start": 4.272,
+   "ende": 4.864
   },
   {
-   "wort": "ohne",
-   "start": 3.924,
-   "ende": 4.202
+   "wort": "Taschenlampe.",
+   "start": 5.05,
+   "ende": 5.839
   },
   {
-   "wort": "Strom",
-   "start": 4.249,
-   "ende": 4.632
+   "wort": "Und",
+   "start": 5.99,
+   "ende": 6.176
   },
   {
-   "wort": "gehen",
-   "start": 4.702,
-   "ende": 4.899
+   "wort": "Bargeld.",
+   "start": 6.245,
+   "ende": 6.837
   },
   {
-   "wort": "Kartenzahlung",
-   "start": 4.969,
-   "ende": 5.874
+   "wort": "Karten",
+   "start": 7.116,
+   "ende": 7.453
   },
   {
-   "wort": "und",
-   "start": 6.095,
-   "ende": 6.269
+   "wort": "brauchen",
+   "start": 7.488,
+   "ende": 7.789
   },
   {
-   "wort": "Geldautomat",
-   "start": 6.338,
-   "ende": 7.209
-  },
-  {
-   "wort": "nicht.",
-   "start": 7.267,
-   "ende": 7.674
+   "wort": "Strom.",
+   "start": 7.824,
+   "ende": 8.3
   }
  ]
 }

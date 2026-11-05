@@ -1,67 +1,67 @@
 1
-00:00:00,000 --> 00:00:03,586
-Zombie-Apokalypse. Die ersten drei Tage entscheiden.
+00:00:00,000 --> 00:00:01,931
+Zombie-Apokalypse. Tag eins.
 
 2
-00:00:08,000 --> 00:00:10,793
-Das Wichtigste zuerst: Wasser. Sechs Liter
+00:00:08,000 --> 00:00:10,845
+Zuerst: Wasser. Sechs Liter pro Person.
 
 3
-00:00:10,793 --> 00:00:11,724
-pro Person.
+00:00:10,845 --> 00:00:11,793
+Nicht umdrehen.
 
 4
-00:00:16,000 --> 00:00:18,926
-Dann Essen, das ohne Herd funktioniert.
+00:00:16,000 --> 00:00:18,676
+Dann Essen, das ohne Herd geht.
 
 5
-00:00:18,926 --> 00:00:21,852
-Chips zählen nur knapp. Besser: Konserven.
+00:00:18,676 --> 00:00:21,352
+Jack wählt: Chips. Mutig. Besser: Konserven.
 
 6
-00:00:21,852 --> 00:00:22,828
-Mit Dosenöffner.
+00:00:21,352 --> 00:00:22,690
+Und ein Dosenöffner.
 
 7
-00:00:24,000 --> 00:00:26,966
-Deine Medikamente und Erste-Hilfe-Material.
+00:00:24,000 --> 00:00:26,786
+Medikamente und Erste-Hilfe-Material. Die hat man
 
 8
-00:00:32,000 --> 00:00:35,007
-Und ein Radio. Fallen Internet und
+00:00:26,786 --> 00:00:29,572
+am besten schon zu Hause. Nicht
 
 9
-00:00:35,007 --> 00:00:38,014
-Mobilfunk aus, funktionieren Warn-Apps nicht mehr,
+00:00:29,572 --> 00:00:30,966
+erst im Gruselflur.
 
 10
-00:00:38,014 --> 00:00:39,517
-Radiosender aber schon.
+00:00:32,000 --> 00:00:34,786
+Jack nimmt ein Fernglas mit. Besser
 
 11
-00:00:40,000 --> 00:00:43,145
-Dazu eine Taschenlampe mit Ersatzbatterien und
+00:00:34,786 --> 00:00:37,572
+wäre ein Radio: Ohne Netz schweigen
 
 12
-00:00:43,145 --> 00:00:46,290
-Bargeld, denn ohne Strom gehen Kartenzahlung
+00:00:37,572 --> 00:00:38,966
+Warn-Apps. Radiosender nicht.
 
 13
-00:00:46,290 --> 00:00:47,862
-und Geldautomat nicht.
+00:00:40,000 --> 00:00:43,103
+Also, die Liste: Wasser. Konserven, Erste
 
 14
-00:00:48,262 --> 00:00:51,001
-Zu Hause dann: Wichtige Nummern auf
+00:00:43,103 --> 00:00:46,207
+Hilfe. Radio. Taschenlampe. Und Bargeld. Karten
 
 15
-00:00:51,001 --> 00:00:53,740
-Papier schreiben, Dokumente griffbereit legen, mit
+00:00:46,207 --> 00:00:47,241
+brauchen Strom.
 
 16
-00:00:53,740 --> 00:00:56,479
-den Nachbarn absprechen. Und du? Was
+00:00:48,000 --> 00:00:51,062
+Nummern auf Papier. Dokumente griffbereit. Nachbarn
 
 17
-00:00:56,479 --> 00:00:57,848
-fehlt dir noch?
+00:00:51,062 --> 00:00:53,103
+fragen. Was fehlt dir?

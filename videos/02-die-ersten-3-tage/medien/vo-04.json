@@ -1,27 +1,82 @@
 {
- "dauer": 3.158,
- "sprech_start": 0.145,
- "sprech_ende": 3.013,
+ "dauer": 6.63,
+ "sprech_start": 0.122,
+ "sprech_ende": 6.369,
  "woerter": [
   {
-   "wort": "Deine",
-   "start": 0.145,
-   "ende": 0.412
-  },
-  {
    "wort": "Medikamente",
-   "start": 0.47,
-   "ende": 1.213
+   "start": 0.122,
+   "ende": 0.924
   },
   {
    "wort": "und",
-   "start": 1.294,
-   "ende": 1.434
+   "start": 1.074,
+   "ende": 1.26
   },
   {
    "wort": "Erste-Hilfe-Material.",
-   "start": 1.538,
-   "ende": 3.013
+   "start": 1.376,
+   "ende": 2.745
+  },
+  {
+   "wort": "Die",
+   "start": 3.024,
+   "ende": 3.175
+  },
+  {
+   "wort": "hat",
+   "start": 3.21,
+   "ende": 3.338
+  },
+  {
+   "wort": "man",
+   "start": 3.385,
+   "ende": 3.501
+  },
+  {
+   "wort": "am",
+   "start": 3.536,
+   "ende": 3.605
+  },
+  {
+   "wort": "besten",
+   "start": 3.64,
+   "ende": 3.943
+  },
+  {
+   "wort": "schon",
+   "start": 3.977,
+   "ende": 4.163
+  },
+  {
+   "wort": "zu",
+   "start": 4.21,
+   "ende": 4.302
+  },
+  {
+   "wort": "Hause.",
+   "start": 4.349,
+   "ende": 4.86
+  },
+  {
+   "wort": "Nicht",
+   "start": 5.137,
+   "ende": 5.358
+  },
+  {
+   "wort": "erst",
+   "start": 5.405,
+   "ende": 5.533
+  },
+  {
+   "wort": "im",
+   "start": 5.568,
+   "ende": 5.626
+  },
+  {
+   "wort": "Gruselflur.",
+   "start": 5.661,
+   "ende": 6.369
   }
  ]
 }

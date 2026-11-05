@@ -1,82 +1,82 @@
 {
- "dauer": 8.516,
- "sprech_start": 0.145,
- "sprech_ende": 8.342,
+ "dauer": 6.508,
+ "sprech_start": 0.261,
+ "sprech_ende": 6.415,
  "woerter": [
   {
-   "wort": "Und",
-   "start": 0.145,
-   "ende": 0.4
+   "wort": "Jack",
+   "start": 0.261,
+   "ende": 0.459
+  },
+  {
+   "wort": "nimmt",
+   "start": 0.517,
+   "ende": 0.668
   },
   {
    "wort": "ein",
-   "start": 0.505,
-   "ende": 0.656
+   "start": 0.703,
+   "ende": 0.784
   },
   {
-   "wort": "Radio.",
-   "start": 0.737,
-   "ende": 1.434
+   "wort": "Fernglas",
+   "start": 0.83,
+   "ende": 1.225
   },
   {
-   "wort": "Fallen",
-   "start": 1.782,
-   "ende": 2.153
+   "wort": "mit.",
+   "start": 1.283,
+   "ende": 1.585
   },
   {
-   "wort": "Internet",
-   "start": 2.235,
-   "ende": 2.722
+   "wort": "Besser",
+   "start": 1.794,
+   "ende": 2.038
   },
   {
-   "wort": "und",
-   "start": 2.792,
-   "ende": 2.885
+   "wort": "wäre",
+   "start": 2.073,
+   "ende": 2.258
   },
   {
-   "wort": "Mobilfunk",
-   "start": 2.943,
-   "ende": 3.512
+   "wort": "ein",
+   "start": 2.282,
+   "ende": 2.374
   },
   {
-   "wort": "aus,",
-   "start": 3.57,
-   "ende": 3.999
+   "wort": "Radio:",
+   "start": 2.433,
+   "ende": 2.955
   },
   {
-   "wort": "funktionieren",
-   "start": 4.116,
-   "ende": 4.928
+   "wort": "Ohne",
+   "start": 3.199,
+   "ende": 3.454
   },
   {
-   "wort": "Warn-Apps",
-   "start": 5.114,
-   "ende": 5.834
+   "wort": "Netz",
+   "start": 3.501,
+   "ende": 3.744
   },
   {
-   "wort": "nicht",
-   "start": 5.892,
-   "ende": 6.101
+   "wort": "schweigen",
+   "start": 3.872,
+   "ende": 4.232
   },
   {
-   "wort": "mehr,",
-   "start": 6.159,
-   "ende": 6.565
+   "wort": "Warn-Apps.",
+   "start": 4.267,
+   "ende": 4.94
   },
   {
    "wort": "Radiosender",
-   "start": 6.728,
-   "ende": 7.529
+   "start": 5.381,
+   "ende": 5.939
   },
   {
-   "wort": "aber",
-   "start": 7.599,
-   "ende": 7.854
-  },
-  {
-   "wort": "schon.",
-   "start": 7.889,
-   "ende": 8.342
+   "wort": "nicht.",
+   "start": 5.974,
+   "ende": 6.415
   }
  ]
 }

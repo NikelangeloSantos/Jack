@@ -1,131 +1,91 @@
-# Video 02 – Die ersten 3 Tage
-# Quelle: Auftrag im Chat (2026-11-05). Sprechertexte, Reihenfolge, Icons, Texte und Anzeigen wörtlich vom Nutzer.
+# Video 02 – Die ersten 3 Tage (Überarbeitung 2)
+# Auftrag 1 (2026-11-05): Szenen, Clips, Icons, Anzeigen vom Nutzer.
+# Auftrag 2: "überarbeite alle Fehler und synchronisiere die Stimme und das Ende passend zum Material,
+#            humorvolle Erzählerstimme von Georg" -> Texte neu auf die Clips geschrieben (trocken-ironisch),
+#            Wörter per `anker` auf die Bildmomente gelegt, Schlussclip vor dem Klemmbrett-Fehler beendet.
 # Nur vorhandene Clips aus bibliothek/clips/ – keine neuen Flow-Clips.
 #
 # Bauen:     python3 tools/jack.py baue videos/02-die-ersten-3-tage
+# Vertonen:  python3 tools/vertonung.py videos/02-die-ersten-3-tage --neu      (fragt, kostet Guthaben)
 # Schneiden: python3 tools/schnitt.py videos/02-die-ersten-3-tage --plan     (dann ohne --plan)
-# Vertonen:  erst nach Freigabe durch den Nutzer (Stimmtest Georg steht noch aus)
 
 [video]
 nummer = "02"
 titel = "Die ersten 3 Tage"
 nur_bibliothek = true
 thema = "Grundvorrat für die ersten Tage einer Krise: Wasser, Essen ohne Kochen, Medikamente, Radio, Licht, Bargeld, Vorbereitung zu Hause."
-lerneffekt = "Mindestens 3 Tage, besser 10 Tage vorsorgen: 2 Liter Wasser pro Person und Tag, Essen ohne Kochen, Medikamente und Erste-Hilfe-Material, Radio, Taschenlampe mit Ersatzbatterien, Bargeld, Nummern auf Papier, Dokumente griffbereit, mit Nachbarn absprechen."
-ton = "trockener, rauer Erzähler, ruhig und klar"
+lerneffekt = "Mindestens 3 Tage, besser 10 Tage vorsorgen: 2 Liter Wasser pro Person und Tag, Essen ohne Kochen, Medikamente und Erste-Hilfe-Material zu Hause, Radio, Taschenlampe, Bargeld, Nummern auf Papier, Dokumente griffbereit, Nachbarn einbeziehen."
+ton = "Georg: trocken, ironisch, Understatement – kommentiert Jacks Entscheidungen wie ein müder Naturfilmer"
 referenzbild = "bibliothek/bilder/jack-observing-burning-city-4098f4a9-2k.jpg"
 caption = "Zombie-Apokalypse: Was brauchst du für die ersten 3 Tage? Wichtig: 3 Tage sind das Minimum – besser ist ein Vorrat für 10 Tage (2 Liter Wasser pro Person und Tag). Quellen: BBK-Ratgeber „Vorsorgen für Krisen und Katastrophen“ und Landesportal Schleswig-Holstein. Was fehlt dir noch?"
 hashtags = ["#zombieapokalypse", "#vorsorge", "#notvorrat", "#survival", "#krisenvorsorge"]
-clip_min_tempo = 1.0   # Nutzer: Clips nicht verlangsamen; bei zu langem Text Kürzung vorschlagen
+clip_min_tempo = 1.0     # Clips nie verlangsamen
 clip_ton = 0.35
 vorlauf = 0.25
-schluss_nachlauf = 0.5   # nach „Was fehlt dir noch?“ nur kurz halten
+max_ueberhang = 0.3      # Stimme bleibt in ihrer Szene; nur ein Wortende darf kurz über den Schnitt
+schluss_nachlauf = 0.3
 
 [[rechnung]]
 beschreibung = "Wasser für 3 Tage"
 ausdruck = "2 * 3"
 ergebnis = 6
 einheit = "Liter pro Person"
-hinweis = "Szene 02: 'Sechs Liter pro Person' = 2 L/Tag × 3 Tage"
+hinweis = "Szene 02: 'Sechs Liter pro Person' = 2 L/Tag × 3 Tage (Einblendung nennt die 3 Tage)"
 
 [[rechnung]]
 beschreibung = "Wasser für 10 Tage (Beschreibung)"
 ausdruck = "2 * 10"
 ergebnis = 20
 einheit = "Liter pro Person"
-hinweis = "nur in der Beschreibung angedeutet ('besser 10 Tage')"
-
-[[fakt]]
-szene = "01"
-text = "„Die ersten drei Tage entscheiden.“"
-status = "offen"
-notiz = "Zuspitzung für den Hook, keine Aussage der Quellen. Belegt ist nur: Vorrat mindestens für 3 Tage, besser für 10 Tage (SH-Landesportal; BBK-Ratgeber S. 2/6: 'Alle Haushalte sollten sich möglichst 10 Tage selbst versorgen können. Aber auch ein Vorrat für zumindest 3 Tage …'). Deshalb Hinweis auf 10 Tage in der Beschreibung."
+hinweis = "nur in der Beschreibung ('besser 10 Tage')"
 
 [[fakt]]
 szene = "02"
-text = "Sechs Liter Wasser pro Person (für drei Tage)."
+text = "Wasser zuerst; sechs Liter pro Person (für drei Tage)."
 status = "geprueft"
-quelle = "https://www.schleswig-holstein.de/DE/landesportal/kampagne/kommklarsh/vorraete (Stand 17.03.2026)"
-beleg = "'Als Orientierung gelten 2 Liter pro Person und Tag.' … 'Für drei Tage sind das rund 6 Liter pro Person.' BBK-Ratgeber: 'Idealerweise 2 Liter pro Person und Tag.'"
-
-[[fakt]]
-szene = "02"
-text = "Wasser zuerst / das Wichtigste."
-status = "geprueft"
-quelle = "BBK-Ratgeber 'Vorsorgen für Krisen und Katastrophen', 2. Aufl. 11/2025 (https://www.markt-triefenstein.de/wp-content/uploads/2026/01/BBK-Vorsorgen-fuer-Krisen-und-Katastrophen.pdf); SH-Landesportal"
-beleg = "BBK: 'Trinkwasser ist sehr wichtig, wichtiger als Essen.' SH: 'Trinkwasser – noch wichtiger als Essen'"
+quelle = "https://www.schleswig-holstein.de/DE/landesportal/kampagne/kommklarsh/vorraete (Stand 17.03.2026); BBK-Ratgeber 'Vorsorgen für Krisen und Katastrophen', 2. Aufl. 11/2025"
+beleg = "SH: 'Trinkwasser – noch wichtiger als Essen' … 'Als Orientierung gelten 2 Liter pro Person und Tag.' … 'Für drei Tage sind das rund 6 Liter pro Person.' BBK: 'Trinkwasser ist sehr wichtig, wichtiger als Essen.'"
 
 [[fakt]]
 szene = "03"
-text = "Essen, das ohne Herd funktioniert."
-status = "geprueft"
-quelle = "BBK-Ratgeber (Essen und Trinken bevorraten); SH-Landesportal"
-beleg = "BBK: 'Fertig. Essen, das nicht gekocht werden muss, ist essbar, auch wenn der Herd nicht mehr funktioniert.' SH: 'Fertig: Essen, das nicht gekocht werden muss, ist essbar. Auch, wenn der Herd nicht mehr funktioniert.'"
-
-[[fakt]]
-szene = "03"
-text = "„Chips zählen nur knapp. Besser: Konserven.“"
-status = "offen"
-notiz = "Wertung/Gag, nicht wörtlich belegt. Die Quellen nennen Kriterien (haltbar, ohne Kühlung, ohne Kochen) – Chips erfüllen sie formal, Konserven auch. 'Konserven' steht nicht wörtlich in den Quellen, passt aber zu 'Haltbar' und 'Fertig'."
-
-[[fakt]]
-szene = "03"
-text = "Dosenöffner."
-status = "geprueft"
-quelle = "BBK-Ratgeber, Checkliste Notgepäck"
-beleg = "'Taschenmesser und Dosenöffner'"
+text = "Essen, das ohne Herd geht; besser Konserven, dazu ein Dosenöffner."
+status = "geprueft (sinngemäß)"
+quelle = "BBK-Ratgeber (Essen und Trinken bevorraten; Checkliste Notgepäck); SH-Landesportal"
+beleg = "BBK/SH: 'Fertig: Essen, das nicht gekocht werden muss, ist essbar, auch wenn der Herd nicht mehr funktioniert.' BBK: 'Taschenmesser und Dosenöffner'."
+notiz = "'Konserven' steht nicht wörtlich in den Quellen, erfüllt aber die Kriterien haltbar/fertig. 'Chips. Mutig.' ist ein Gag, keine Sachaussage."
 
 [[fakt]]
 szene = "04"
-text = "Persönliche Medikamente und Erste-Hilfe-Material."
+text = "Medikamente und Erste-Hilfe-Material am besten schon zu Hause haben."
 status = "geprueft"
-quelle = "BBK-Ratgeber (Hausapotheke; Checklisten)"
-beleg = "'Persönliche Medikamente … nach individuellem Bedarf'; 'Material zur Wundversorgung, zum Beispiel Pflaster und Mullbinden'; Checkliste Notgepäck: 'Erste-Hilfe-Material', 'Persönliche Medikamente'"
+quelle = "BBK-Ratgeber (Hausapotheke)"
+beleg = "'In einer Krise … kann es sein, dass der Rettungsdienst, Krankenhäuser und Apotheken vorübergehend nicht verfügbar sind. Daher ist es sinnvoll, wichtige Medikamente zuhause zu haben.' Hausapotheke: 'Persönliche Medikamente', 'Material zur Wundversorgung, zum Beispiel Pflaster und Mullbinden'."
 
 [[fakt]]
 szene = "05"
-text = "Fallen Internet und Mobilfunk aus, funktionieren Warn-Apps nicht mehr, Radiosender aber schon."
-status = "geprueft"
-quelle = "BBK-Ratgeber (Informieren/Warnung)"
-beleg = "'Wenn Mobilfunknetz und Internet nicht mehr funktionieren, fallen auch Warn-Apps oder Handy-Warnungen aus. Radiosender funktionieren aber auch dann noch. Daher ist ein Radio in Notfällen und Krisen wichtig.'"
-notiz = "Bei Stromausfall laut BBK: 'Auto- oder Kurbelradios sowie batteriebetriebene Radios'."
-
-[[fakt]]
-szene = "06"
-text = "Taschenlampe mit Ersatzbatterien."
-status = "geprueft"
-quelle = "BBK-Ratgeber, Checkliste 'Licht und Wärme'"
-beleg = "'Taschenlampe und Ersatzbatterien'"
-
-[[fakt]]
-szene = "06"
-text = "Bargeld, denn ohne Strom gehen Kartenzahlung und Geldautomat nicht."
-status = "geprueft"
-quelle = "BBK-Ratgeber, Abschnitt 'Wenn der Alltag unterbrochen wird' (Zahlungsverkehr); Checkliste: 'Bargeld'"
-beleg = "'Ohne Strom oder IT-Systeme fallen elektronische Zahlungssysteme aus. Abhebungen an Bankautomaten und das Bezahlen per Karte oder Handy funktionieren nicht mehr.'"
-
-[[fakt]]
-szene = "07"
-text = "Wichtige Nummern auf Papier schreiben."
-status = "geprueft"
-quelle = "BBK-Ratgeber, Checkliste 'Information/Kommunikation'"
-beleg = "'Liste wichtiger Telefonnummern auf Papier'"
-
-[[fakt]]
-szene = "07"
-text = "Dokumente griffbereit legen."
-status = "geprueft"
-quelle = "BBK-Ratgeber, Abschnitt 'Dokumente sicher aufbewahren'"
-beleg = "'Wenn Sie das Haus plötzlich verlassen müssen, sollten Sie wichtige Dokumente griffbereit haben.'"
-
-[[fakt]]
-szene = "07"
-text = "Mit den Nachbarn absprechen."
+text = "Ohne Netz schweigen Warn-Apps, Radiosender nicht."
 status = "geprueft (sinngemäß)"
-quelle = "BBK-Ratgeber, 'Das können Sie noch tun'"
-beleg = "'Sprechen Sie mit Ihrem Umfeld (Nachbarschaft, Familie, Freundeskreis) darüber, wie man Sie in einer Notsituation unterstützen kann.'"
+quelle = "BBK-Ratgeber (Informieren)"
+beleg = "'Wenn Mobilfunknetz und Internet nicht mehr funktionieren, fallen auch Warn-Apps oder Handy-Warnungen aus. Radiosender funktionieren aber auch dann noch.'"
+notiz = "'Netz' = Mobilfunknetz und Internet."
+
+[[fakt]]
+szene = "06"
+text = "Liste: Wasser, Konserven, Erste Hilfe, Radio, Taschenlampe, Bargeld – Karten brauchen Strom."
+status = "geprueft (sinngemäß)"
+quelle = "BBK-Ratgeber (Checklisten; 'Wenn der Alltag unterbrochen wird' – Zahlungsverkehr)"
+beleg = "Checkliste: Trinkwasser, haltbare Lebensmittel, Erste-Hilfe-Material, Radio, 'Taschenlampe und Ersatzbatterien', 'Bargeld'. Zahlungsverkehr: 'Ohne Strom oder IT-Systeme fallen elektronische Zahlungssysteme aus. Abhebungen an Bankautomaten und das Bezahlen per Karte oder Handy funktionieren nicht mehr.'"
+notiz = "Ersatzbatterien und Geldautomat aus Zeitgründen nicht mehr gesprochen."
+
+[[fakt]]
+szene = "07"
+text = "Nummern auf Papier, Dokumente griffbereit, Nachbarn fragen."
+status = "geprueft (sinngemäß)"
+quelle = "BBK-Ratgeber (Checkliste Information; 'Dokumente sicher aufbewahren'; 'Das können Sie noch tun')"
+beleg = "'Liste wichtiger Telefonnummern auf Papier'; 'sollten Sie wichtige Dokumente griffbereit haben'; 'Sprechen Sie mit Ihrem Umfeld (Nachbarschaft, Familie, Freundeskreis) darüber, wie man Sie in einer Notsituation unterstützen kann.'"
 
 # ---------------------------------------------------------------- Szenen
+# anker = Wort auf eine Sekunde im Clip legen (z. B. wenn ein eingebranntes Icon erscheint).
 
 [[szene]]
 name = "Der Einkaufswagen"
@@ -133,18 +93,21 @@ teil = "hook"
 medien = ["bibliothek/clips/dog-pushing-shopping-cart-in-cf8e0a3c-720p.mp4#0-2.1"]
 hinweis_schnitt = "nur 0–2,1 s: ab ca. 2,3 s ist der Wagen plötzlich voll"
 vorlauf = 0.0
-bild_de = "Jack rennt mit leerem Einkaufswagen durch den verwüsteten Supermarkt"
-sprechertext = '''Zombie-Apokalypse. Die ersten drei Tage entscheiden.'''
+bild_de = "Jack rennt grinsend mit leerem Einkaufswagen durch den verwüsteten Supermarkt"
+sprechertext = '''Zombie-Apokalypse. Tag eins.'''
+einblendtext = "Die ersten 3 Tage"
 chance = 20
 
 [[szene]]
 name = "Wasser"
 teil = "fakt"
 medien = ["bibliothek/clips/jack-finds-water-bottle-in-ef50b4d4-720p.mp4#0-5.4"]
-hinweis_schnitt = "nur 0–5,4 s: ab 5,5 s Nahaufnahme mit verändertem Gesicht, ab ca. 6,3 s spitze Ohren"
-bild_de = "Jack findet im dunklen Supermarkt eine Wasserflasche, ein Schatten taucht hinter ihm auf"
-sprechertext = '''Das Wichtigste zuerst: Wasser. Sechs Liter pro Person.'''
-einblendungen = [{ text = "6 Liter pro Person", wort = "Sechs" }]
+hinweis_schnitt = "nur 0–5,4 s: ab 5,5 s Nahaufnahme mit verändertem Gesicht, ab ca. 6,3 s spitze Ohren. Flasche ab ca. 1,5 s sichtbar, Schatten ab ca. 4 s"
+vorlauf = 0.5
+bild_de = "Jack findet im dunklen Supermarkt eine Wasserflasche, ein Schatten mit leuchtenden Augen taucht hinter ihm auf"
+sprechertext = '''Zuerst: Wasser. Sechs Liter pro Person. Nicht umdrehen.'''
+anker = [{ wort = "Wasser", zeit = 1.6 }, { wort = "Nicht", zeit = 4.2 }]
+einblendungen = [{ text = "6 Liter pro Person (3 Tage)", wort = "Sechs" }]
 chance = 30
 popup = [{ icon = "wasser", wort = "Wasser", x = 830, y = 520 }]
 
@@ -152,8 +115,9 @@ popup = [{ icon = "wasser", wort = "Wasser", x = 830, y = 520 }]
 name = "Essen ohne Kochen"
 teil = "falscher_plan"
 medien = ["bibliothek/clips/dog-packing-chip-bags-into-57c3549f-720p.mp4"]
-bild_de = "Jack packt im hellen Supermarkt Chipstüten in den Wagen"
-sprechertext = '''Dann Essen, das ohne Herd funktioniert. Chips zählen nur knapp. Besser: Konserven. Mit Dosenöffner.'''
+hinweis_schnitt = "Jack legt ab ca. 1,5 s eine Chipstüte in den Wagen, greift ab 3 s die nächste, grinst ab ca. 5 s in die Kamera"
+bild_de = "Jack packt im hellen Supermarkt Chipstüten in den Wagen und grinst zufrieden"
+sprechertext = '''Dann Essen, das ohne Herd geht. Jack wählt: Chips. Mutig. Besser: Konserven. Und ein Dosenöffner.'''
 einblendungen = [{ text = "Essen ohne Kochen", wort = "Essen" }]
 chance = 40
 popup = [{ icon = "konserven", wort = "Konserven", x = 850, y = 520 }]
@@ -162,8 +126,10 @@ popup = [{ icon = "konserven", wort = "Konserven", x = 850, y = 520 }]
 name = "Medikamente"
 teil = "fakt"
 medien = ["bibliothek/clips/jack-searches-hospital-medical-c-d913c2d0-720p.mp4"]
+hinweis_schnitt = "Flur 0–2 s, Schrank ab 2 s, öffnet ab 3,5 s, nimmt Dose ab ca. 5 s, lächelt ab 7 s"
 bild_de = "Jack geht durch einen verlassenen Krankenhausflur und holt eine Medikamentendose aus dem Schrank"
-sprechertext = '''Deine Medikamente und Erste-Hilfe-Material.'''
+sprechertext = '''Medikamente und Erste-Hilfe-Material. Die hat man am besten schon zu Hause. Nicht erst im Gruselflur.'''
+anker = [{ wort = "Nicht", zeit = 5.4 }]
 chance = 55
 popup = [
   { icon = "medikamente", wort = "Medikamente", x = 250, y = 520 },
@@ -171,21 +137,30 @@ popup = [
 ]
 
 [[szene]]
-name = "Radio"
+name = "Fernglas statt Radio"
 teil = "eskalation"
 medien = ["bibliothek/clips/jack-observing-binocular-city-43b7385e-720p.mp4"]
-bild_de = "Jack holt nachts etwas aus dem Kofferraum, schaut mit dem Fernglas auf die brennende Stadt"
-sprechertext = '''Und ein Radio. Fallen Internet und Mobilfunk aus, funktionieren Warn-Apps nicht mehr, Radiosender aber schon.'''
+hinweis_schnitt = "Kofferraum 0–1,5 s, Fernglas-Nahaufnahme ab 2 s, brennende Stadt ab 4 s, Fernglas-Blick ab 6 s"
+bild_de = "Jack holt nachts ein Fernglas aus dem Kofferraum und schaut auf die brennende Stadt"
+sprechertext = '''Jack nimmt ein Fernglas mit. Besser wäre ein Radio: Ohne Netz schweigen Warn-Apps. Radiosender nicht.'''
+anker = [{ wort = "Besser", zeit = 2.4 }]
 chance = 70
 popup = [{ icon = "radio", wort = "Radio", x = 270, y = 520 }]
 
 [[szene]]
-name = "Taschenlampe und Bargeld"
+name = "Die Liste"
 teil = "fakt"
 medien = ["bibliothek/clips/dog-checking-items-on-clipboard-09347c48-720p.mp4"]
-hinweis_schnitt = "Icons sind im Clip eingebrannt (Wasser, Konserven, Erste Hilfe, Radio, Taschenlampe, ab 7,4 s auch Geldscheine) – kein eigenes Icon darüber; Texte unten"
-bild_de = "Jack hakt auf dem Klemmbrett ab, über ihm erscheinen Icons (im Clip eingebrannt)"
-sprechertext = '''Dazu eine Taschenlampe mit Ersatzbatterien und Bargeld, denn ohne Strom gehen Kartenzahlung und Geldautomat nicht.'''
+hinweis_schnitt = "Icons im Clip eingebrannt: Wasser 1,5 s, Konserven + Erste Hilfe 3,5 s, Radio 5,5 s, Taschenlampe 6,4 s, Geldscheine 7,4 s – die Stimme ist per Anker darauf gelegt; kein eigenes Icon, Texte unten"
+bild_de = "Jack hakt auf dem Klemmbrett ab, über ihm erscheinen nacheinander die Icons (im Clip eingebrannt)"
+sprechertext = '''Also, die Liste: Wasser. Konserven, Erste Hilfe. Radio. Taschenlampe. Und Bargeld. Karten brauchen Strom.'''
+anker = [
+  { wort = "Wasser", zeit = 1.55 },
+  { wort = "Konserven", zeit = 3.55 },
+  { wort = "Radio", zeit = 5.55 },
+  { wort = "Taschenlampe", zeit = 6.45 },
+  { wort = "Bargeld", zeit = 7.45 },
+]
 texte_unten = true
 einblendungen = [{ text = "Bargeld", wort = "Bargeld" }]
 chance = 80
@@ -193,14 +168,14 @@ chance = 80
 [[szene]]
 name = "Zu Hause"
 teil = "schluss"
-medien = ["bibliothek/clips/dog-checking-clipboard-in-apartment-2d8929d0-720p.mp4"]
-hinweis_schnitt = "bei ca. 5,8 s verschwindet das Klemmbrett während der Kamerafahrt (nicht im Katalog, neu gefunden)"
+medien = ["bibliothek/clips/dog-checking-clipboard-in-apartment-2d8929d0-720p.mp4#0-5.6"]
+hinweis_schnitt = "nur 0–5,6 s: bei ca. 5,8 s verschwindet das Klemmbrett, Gesicht danach leicht anders"
+vorlauf = 0.15
 bild_de = "Jack mit Pflaster hakt im Vorratsraum mit Laternen auf dem Klemmbrett ab, Kamera fährt heran"
-sprechertext = '''Zu Hause dann: Wichtige Nummern auf Papier schreiben, Dokumente griffbereit legen, mit den Nachbarn absprechen. Und du? Was fehlt dir noch?'''
-vorziehen = 1.8   # Text bleibt (Nutzer): Stimme beginnt kurz vor dem Schnitt, wo Szene 6 still ist
+sprechertext = '''Nummern auf Papier. Dokumente griffbereit. Nachbarn fragen. Was fehlt dir?'''
 einblendungen = [
   { text = "Nummern auf Papier", wort = "Nummern" },
   { text = "Dokumente griffbereit", wort = "Dokumente" },
-  { text = "Nachbarn absprechen", wort = "Nachbarn" },
+  { text = "Nachbarn fragen", wort = "Nachbarn" },
 ]
 chance = 90
