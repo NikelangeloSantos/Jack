@@ -5,7 +5,7 @@ _Automatisch erzeugt aus `thema.toml` – Änderungen bitte dort machen und neu 
 - **Thema:** Wasservorrat für den Notfall: Ohne Strom kann auch das Leitungswasser ausfallen.
 - **Lerneffekt:** Trinkwasser vorrätig haben: 2 Liter pro Person und Tag, mindestens für 3 Tage, besser für 10. Dazu Konserven, Medikamente, Radio, Taschenlampe, Bargeld.
 - **Ton:** trockener, rauer Erzähler, Understatement; Jack macht die Fehler
-- **Wörter:** 99 · **geschätzte Dauer:** ca. 52 s
+- **Wörter:** 99 · **geschätzte Dauer:** ca. 51 s
 
 ## 01 Der Einkauf (hook, ca. 0–8 s)
 
@@ -29,7 +29,7 @@ _Automatisch erzeugt aus `thema.toml` – Änderungen bitte dort machen und neu 
 
 **Einblendung:** TAG 3
 
-## 04 Der letzte Chip (fakt, ca. 24–34 s)
+## 04 Der letzte Chip (fakt, ca. 24–33 s)
 
 **Erzähler:** Empfohlen sind zwei Liter pro Person und Tag. Für zehn Tage also zwanzig Liter. Jack hat null Liter und sehr viel Salz.
 
@@ -37,13 +37,13 @@ _Automatisch erzeugt aus `thema.toml` – Änderungen bitte dort machen und neu 
 
 **Einblendung:** 2 L × 10 Tage = 20 L
 
-## 05 Die letzte Flasche (eskalation, ca. 34–42 s)
+## 05 Die letzte Flasche (eskalation, ca. 33–41 s)
 
 **Erzähler:** Also zurück in den Supermarkt. Nur eine Flasche ist übrig. Und Jack ist nicht allein.
 
 **Überlebenschance:** 3 %
 
-## 06 Die Liste (schluss, ca. 42–52 s)
+## 06 Die Liste (schluss, ca. 41–51 s)
 
 **Erzähler:** Damit dir das nicht passiert: sechs Liter Wasser pro Person, Konserven, deine Medikamente, ein Radio, eine Taschenlampe und Bargeld. Was fehlt bei dir?
 

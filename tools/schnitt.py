@@ -7,8 +7,13 @@ Benutzung (aus dem Repo-Hauptordner):
 
 Grundsätze (anders als bei Brokey):
 - Flow-Clips laufen möglichst vollständig, ohne schnelle Zoom-Ausschnitte. Eine Szene dauert so lange wie
-  ihr Clip, mindestens aber so lange wie die Stimme. Ist die Stimme länger, wird der Clip bis auf
-  clip_min_tempo verlangsamt und dann das letzte Bild gehalten.
+  ihr Clip. Clips werden standardmäßig NICHT verlangsamt (clip_min_tempo = 1.0).
+- Die Stimme ist eine durchgehende Spur: Ein Satz darf bis max_ueberhang Sekunden in die nächste Szene
+  laufen. Reicht das nicht (oder in der letzten Szene), wird das letzte Bild gehalten und der Plan
+  meldet „TEXT ZU LANG“ -> dann dem Nutzer eine Textkürzung vorschlagen, nicht still dehnen.
+- Pro Szene: einblendungen = [{ text = "...", wort = "..." }] erscheinen nacheinander zum Wort;
+  texte_unten = true setzt Überlebenschance und Einblendungen nach unten (z. B. wenn oben Icons im Clip sind);
+  popup-Einträge können x, y, groesse haben.
 - Der Clip-Ton läuft leise unter der Stimme (clip_ton) und wird beim Sprechen zusätzlich abgesenkt.
 - Untertitel, Einblendungen, „Überlebenschance: X %“ und Pop-up-Icons werden hier eingefügt (nie in Flow).
 - Untertitel und Pop-ups folgen den Wort-Zeitstempeln aus tools/vertonung.py (vo-NN.json).
@@ -42,10 +47,13 @@ STANDARD = {
     "ducking": True,         # Clip-Ton beim Sprechen zusätzlich absenken
     "vorlauf": 0.25,         # Sekunden Bild vor Einsatz der Stimme (pro Szene überschreibbar)
     "nachlauf": 0.35,        # Mindest-Luft nach der Stimme
-    "clip_min_tempo": 0.85,  # zu kurze Clips höchstens so stark verlangsamen
+    "clip_min_tempo": 1.0,   # 1.0 = nie verlangsamen (Nutzerwunsch); z. B. 0.9 erlaubt leichtes Verlangsamen
     "einblend_dauer": 2.5,   # Einblendtext so viele Sekunden am Szenenanfang (0 = ganze Szene)
     "zaehl_dauer": 0.7,      # Überlebenschance zählt so lange zum neuen Wert
     "icon_groesse": 230,
+    "luecke": 0.2,           # Mindestpause zwischen zwei Sätzen der Stimme
+    "max_ueberhang": 1.5,    # so weit darf ein Satz in die nächste Szene laufen (statt Clip zu dehnen)
+    "schluss_nachlauf": 0.8, # nach dem letzten Wort noch so lange Bild
 }
 UT_ZEICHEN = 30              # Untertitel: max. ca. 30 Zeichen pro Zeile, 2 Zeilen
 
@@ -100,6 +108,8 @@ Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour,
 Style: Untertitel,Inter ExtraBold,66,&H00FFFFFF,&H00FFFFFF,&H00101010,&H90000000,0,0,0,0,100,100,0,0,1,6,3,2,80,80,430,1
 Style: Chance,Inter Black,56,&H00FFFFFF,&H00FFFFFF,&H00141414,&HC8141414,0,0,0,0,100,100,0,0,3,18,0,8,60,60,190,1
 Style: Einblendung,Inter Black,62,&H00141414,&H00141414,&H0050D8F5,&H00000000,0,0,0,0,100,100,0,0,3,14,0,8,80,80,330,1
+Style: ChanceU,Inter Black,56,&H00FFFFFF,&H00FFFFFF,&H00141414,&HC8141414,0,0,0,0,100,100,0,0,3,18,0,2,60,60,760,1
+Style: EinblendungU,Inter Black,62,&H00141414,&H00141414,&H0050D8F5,&H00000000,0,0,0,0,100,100,0,0,3,14,0,2,80,80,640,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -229,8 +239,8 @@ def baue_bild(medien: list[tuple[Path, float, float | None]], d: float, min_temp
     return tempo
 
 
-def baue_ton(medien, tempo: float, stimme: Path | None, d: float, vorlauf: float, cfg: dict, ziel: Path):
-    """Ton einer Szene: Clip-Ton leise (+ Ducking) unter der Stimme."""
+def baue_sfx(medien, tempo: float, d: float, cfg: dict, ziel: Path):
+    """Clip-Ton einer Szene (leise), ohne Stimme. Die Stimme kommt als durchgehende Spur dazu."""
     eingabe, ketten, n = [], [], 0
     for m, von, bis in medien:
         if ist_clip(m) and hat_audio(m):
@@ -239,23 +249,31 @@ def baue_ton(medien, tempo: float, stimme: Path | None, d: float, vorlauf: float
             ketten.append(f"[{n}:a]aresample=48000,aformat=channel_layouts=stereo,atempo={max(0.5, tempo):.4f}[c{n}]")
             n += 1
     if n:
-        sfx = "".join(f"[c{i}]" for i in range(n)) + f"concat=n={n}:v=0:a=1,volume={cfg['clip_ton']},apad,atrim=duration={d:.3f}[sfx]"
+        sfx = "".join(f"[c{i}]" for i in range(n)) + f"concat=n={n}:v=0:a=1,volume={cfg['clip_ton']},apad,atrim=duration={d:.3f}[a]"
     else:
         eingabe += ["-f", "lavfi", "-t", f"{d:.3f}", "-i", "anullsrc=r=48000:cl=stereo"]
-        sfx = f"[{n}:a]atrim=duration={d:.3f}[sfx]"
-        n += 1
-    f = ";".join(ketten + [sfx])
-    if stimme:
-        eingabe += ["-i", str(stimme)]
-        f += (f";[{n}:a]aresample=48000,aformat=channel_layouts=stereo,adelay={int(vorlauf * 1000)}:all=1,"
-              f"apad,atrim=duration={d:.3f},asplit=2[st][sc]")
-        if cfg["ducking"]:
-            f += ";[sfx][sc]sidechaincompress=threshold=0.03:ratio=6:attack=15:release=350[duck]"
-            f += ";[st][duck]amix=inputs=2:normalize=0,atrim=duration={:.3f}[a]".format(d)
-        else:
-            f += ";[sc]anullsink;[st][sfx]amix=inputs=2:normalize=0,atrim=duration={:.3f}[a]".format(d)
+        sfx = f"[{n}:a]atrim=duration={d:.3f}[a]"
+    ffmpeg(*eingabe, "-filter_complex", ";".join(ketten + [sfx]), "-map", "[a]", "-c:a", "pcm_s16le", "-ar", "48000", str(ziel))
+
+
+def mische_ton(sfx: Path, stimmen: list[tuple[Path, float]], gesamt: float, cfg: dict, ziel: Path):
+    """Durchgehende Stimmspur (jede vo-NN.wav ab ihrer Startzeit) über den Clip-Ton legen, mit Ducking."""
+    eingabe = ["-i", str(sfx)]
+    for datei, _ in stimmen:
+        eingabe += ["-i", str(datei)]
+    if not stimmen:
+        ffmpeg(*eingabe, "-c:a", "pcm_s16le", str(ziel))
+        return
+    f = ""
+    for k, (_, ab) in enumerate(stimmen, 1):
+        f += f"[{k}:a]aresample=48000,aformat=channel_layouts=stereo,adelay={int(max(0, ab) * 1000)}:all=1[s{k}];"
+    f += "".join(f"[s{k}]" for k in range(1, len(stimmen) + 1))
+    f += f"amix=inputs={len(stimmen)}:normalize=0,apad,atrim=duration={gesamt:.3f},asplit=2[st][sc];"
+    if cfg["ducking"]:
+        f += "[0:a][sc]sidechaincompress=threshold=0.03:ratio=6:attack=15:release=350[duck];"
+        f += f"[st][duck]amix=inputs=2:normalize=0,atrim=duration={gesamt:.3f}[a]"
     else:
-        f += ";[sfx]anull[a]"
+        f += f"[sc]anullsink;[st][0:a]amix=inputs=2:normalize=0,atrim=duration={gesamt:.3f}[a]"
     ffmpeg(*eingabe, "-filter_complex", f, "-map", "[a]", "-c:a", "pcm_s16le", "-ar", "48000", str(ziel))
 
 
@@ -278,7 +296,64 @@ def icon_positionen(n: int, groesse: int) -> list[tuple[int, int]]:
     return pos
 
 
+def wort_zeit(woerter: list[dict], wort: str) -> float | None:
+    """Startzeit (relativ) des ersten gesprochenen Wortes, das `wort` enthält."""
+    ziel = re.sub(r"\W", "", wort.lower())
+    for w in woerter:
+        if ziel and ziel in re.sub(r"\W", "", w["wort"].lower()):
+            return w["start"]
+    return None
+
+
 # ---------------------------------------------------------------- Hauptablauf
+
+def plane(m: Mappe, cfg: dict, medien_dir: Path) -> list[dict]:
+    """Zeitplan: Szene = Cliplänge. Die Stimme bildet eine durchgehende Spur: Satz k beginnt bei
+    Szenenstart + vorlauf, frühestens nach dem vorigen Satz. Ragt er über das Clipende, darf er bis
+    max_ueberhang Sekunden in die nächste Szene laufen; sonst wird das letzte Bild gehalten (Warnung)."""
+    plan, t, frei_ab = [], 0.0, None
+    for i, s in enumerate(m.szenen):
+        nn = s["_nn"]
+        eintraege = [zerlege(e) for e in m.medien_fuer(s)]
+        for p, _, _ in eintraege:
+            if not p.exists():
+                print(f"  WARNUNG: Szene {nn}: {p} gibt es nicht.")
+        eintraege = [e for e in eintraege if e[0].exists()]
+        wav, info = medien_dir / f"vo-{nn}.wav", medien_dir / f"vo-{nn}.json"
+        if wav.exists() and info.exists():
+            j = json.loads(info.read_text(encoding="utf-8"))
+            woerter, s0, s1, quelle = j["woerter"], j["sprech_start"], j["sprech_ende"], "Stimme"
+        else:
+            wav, s0, s1, quelle = None, 0.0, s["_sprech"], "geschätzt"
+            woerter = geschaetzte_woerter(s.get("sprechertext", ""), s1)
+        clip_len = sum(min(b or dauer(p), dauer(p)) - v for p, v, b in eintraege if ist_clip(p))
+        d = clip_len or float(s.get("clip_dauer", 8))
+        vorlauf = s.get("vorlauf", cfg["vorlauf"])
+        nachlauf = s.get("nachlauf", cfg["nachlauf"])
+        # vorziehen = x: Satz darf x s vor dem Schnitt beginnen (über dem Ende der vorigen Szene)
+        wunsch = t + vorlauf - s.get("vorziehen", 0.0)
+        sprech_ab = wunsch if frei_ab is None else max(wunsch, frei_ab + cfg["luecke"])  # erstes Wort, absolut
+        sprech_bis = sprech_ab + (s1 - s0)
+        halten, ueberhang = 0.0, 0.0
+        letzte = i == len(m.szenen) - 1
+        if s.get("kuerzen"):
+            d = max(0.5, sprech_bis + nachlauf - t)
+        elif letzte:
+            halten = max(0.0, sprech_bis + cfg["schluss_nachlauf"] - (t + d))
+        else:
+            ueber = sprech_bis - (t + d)          # so weit ragt die Stimme über das Clipende
+            if ueber > 0:
+                erlaubt = cfg["max_ueberhang"] if s.get("ueberhang", True) else 0.0
+                ueberhang = min(ueber, erlaubt)
+                halten = ueber - ueberhang
+        d += halten
+        plan.append(dict(s=s, nn=nn, medien=eintraege, wav=wav, woerter=woerter, d=d, start=t, quelle=quelle,
+                         clip_len=clip_len, versatz=sprech_ab - s0, sprech_ab=sprech_ab, sprech_bis=sprech_bis,
+                         halten=halten, ueberhang=ueberhang))
+        frei_ab = sprech_bis
+        t += d
+    return plan
+
 
 def schneide(ordner: Path, nur_plan: bool = False, ausgabe: Path | None = None, arbeit: Path | None = None):
     if not shutil.which("ffmpeg"):
@@ -286,45 +361,22 @@ def schneide(ordner: Path, nur_plan: bool = False, ausgabe: Path | None = None, 
     m = Mappe(ordner)
     m.pruefe()
     cfg = {k: m.v.get(k, v) for k, v in STANDARD.items()}
-    medien_dir = ordner / "medien"
+    plan = plane(m, cfg, ordner / "medien")
+    gesamt = sum(p["d"] for p in plan)
 
-    plan, t = [], 0.0
-    for s in m.szenen:
-        nn = s["_nn"]
-        eintraege = [zerlege(e) for e in m.medien_fuer(s)]
-        for p, _, _ in eintraege:
-            if not p.exists():
-                print(f"  WARNUNG: Szene {nn}: {p} gibt es nicht.")
-        eintraege = [e for e in eintraege if e[0].exists()]
-        stimme = medien_dir / f"vo-{nn}.wav"
-        info = medien_dir / f"vo-{nn}.json"
-        vorlauf = s.get("vorlauf", cfg["vorlauf"])
-        if stimme.exists() and info.exists():
-            j = json.loads(info.read_text(encoding="utf-8"))
-            woerter, sprech, quelle = j["woerter"], j["sprech_ende"], "Stimme"
-        else:
-            stimme, sprech = None, s["_sprech"]
-            woerter, quelle = geschaetzte_woerter(s.get("sprechertext", ""), sprech), "geschätzt"
-        clip_len = sum(min(b or dauer(p), dauer(p)) - v for p, v, b in eintraege if ist_clip(p))
-        mindest = vorlauf + sprech + s.get("nachlauf", cfg["nachlauf"])
-        if s.get("kuerzen"):  # Szene endet mit der Stimme, Rest des Clips fällt weg
-            d = mindest
-        else:
-            d = max(clip_len or float(s.get("clip_dauer", 8)), mindest)
-        plan.append(dict(s=s, nn=nn, medien=eintraege, stimme=stimme, woerter=woerter, d=d, start=t,
-                         vorlauf=vorlauf, quelle=quelle, clip_len=clip_len))
-        t += d
-
-    vollstaendig = all(p["medien"] and p["stimme"] for p in plan)
+    vollstaendig = all(p["medien"] and p["wav"] for p in plan)
     print(f"Schnittplan {ordner.name}:")
     for p in plan:
-        namen = ", ".join(x.name for x, _, _ in p["medien"]) or "FEHLT -> Platzhalter"
+        namen = ", ".join(x.name + (f" ({v:g}-{b:g} s)" if (v or b) else "") for x, v, b in p["medien"]) or "FEHLT -> Platzhalter"
         hinweis = ""
-        if p["clip_len"] and p["d"] > p["clip_len"] + 0.05:
-            hinweis = f"  (Stimme länger als Clip: {p['d'] - p['clip_len']:.1f} s verlangsamt/gehalten)"
-        print(f"  {p['nn']} {p['start']:5.1f}-{p['start'] + p['d']:5.1f}s  Stimme: {p['quelle']:9}  "
-              f"Chance {p['s'].get('chance')} %  Medien: {namen}{hinweis}")
-    print(f"  Gesamt: {t:.1f} s")
+        if p["ueberhang"] > 0.05:
+            hinweis += f"  Stimme läuft {p['ueberhang']:.1f} s in die nächste Szene"
+        if p["halten"] > 0.05:
+            hinweis += f"  ⚠️ TEXT ZU LANG: letztes Bild {p['halten']:.1f} s gehalten -> Kürzung nötig"
+        print(f"  {p['nn']} {p['start']:5.1f}-{p['start'] + p['d']:5.1f}s  Clip {p['clip_len']:4.1f}s  "
+              f"Stimme ({p['quelle']}) {p['sprech_ab']:5.1f}-{p['sprech_bis']:5.1f}s  Chance {p['s'].get('chance')} %"
+              f"  {namen}{hinweis}")
+    print(f"  Gesamt: {gesamt:.1f} s")
     for f in m.fehler:
         print(f"  FEHLER:  {f}")
     if nur_plan:
@@ -338,9 +390,8 @@ def schneide(ordner: Path, nur_plan: bool = False, ausgabe: Path | None = None, 
 
     with (tempfile.TemporaryDirectory() if arbeit is None else _Ordner(arbeit)) as tmp:
         tmp = Path(tmp)
-        vliste, aliste = [], []
-        ass, srt, alt = [ASS_KOPF], [], None
-        popups = []
+        vliste, sliste, stimmen = [], [], []
+        ass, srt, alt, popups = [ASS_KOPF], [], None, []
         for p in plan:
             s, d, t0 = p["s"], p["d"], p["start"]
             medien = p["medien"]
@@ -350,45 +401,58 @@ def schneide(ordner: Path, nur_plan: bool = False, ausgabe: Path | None = None, 
                 medien = [(ph, 0.0, None)]
             vseg, aseg = tmp / f"v-{p['nn']}.mp4", tmp / f"a-{p['nn']}.wav"
             tempo = baue_bild(medien, d, cfg["clip_min_tempo"], vseg, tmp)
-            baue_ton(medien, tempo, p["stimme"], d, p["vorlauf"], cfg, aseg)
+            baue_sfx(medien, tempo, d, cfg, aseg)
             vliste.append(f"file '{vseg}'")
-            aliste.append(aseg)
+            sliste.append(aseg)
+            if p["wav"]:
+                stimmen.append((p["wav"], p["versatz"]))
             print(f"  Szene {p['nn']}: {d:.1f} s" + (f", Clip-Tempo {tempo:.2f}" if tempo < 1 else ""))
 
-            # Texte
-            ass += chance_zeilen(t0, t0 + d, alt, s["chance"], cfg["zaehl_dauer"])
+            # Überlebenschance und Einblendungen (oben, oder unten mit texte_unten = true)
+            unten = "U" if s.get("texte_unten") else ""
+            ass += [z.replace(",Chance,", f",Chance{unten},") for z in
+                    chance_zeilen(t0, t0 + d, alt, s["chance"], cfg["zaehl_dauer"])]
             alt = s["chance"]
+            v = p["versatz"]
             if s.get("einblendtext"):
                 e_ende = t0 + d if not cfg["einblend_dauer"] else min(t0 + d, t0 + cfg["einblend_dauer"])
-                ass.append(f"Dialogue: 1,{ass_zeit(t0 + 0.15)},{ass_zeit(e_ende)},Einblendung,,0,0,0,,"
+                ass.append(f"Dialogue: 1,{ass_zeit(t0 + 0.15)},{ass_zeit(e_ende)},Einblendung{unten},,0,0,0,,"
                            f"{{\\fad(120,150)}}{ass_text(s['einblendtext'])}\n")
-            versatz = t0 + p["vorlauf"]
+            folge = s.get("einblendungen", [])
+            zeiten = []
+            for k, e in enumerate(folge):
+                wz = wort_zeit(p["woerter"], e.get("wort", "")) if e.get("wort") else None
+                zeiten.append(v + wz if wz is not None else t0 + 0.3 + k * 1.5)
+            for k, e in enumerate(folge):
+                bis = zeiten[k + 1] if k + 1 < len(folge) else t0 + d
+                ass.append(f"Dialogue: 1,{ass_zeit(zeiten[k])},{ass_zeit(bis)},Einblendung{unten},,0,0,0,,"
+                           f"{{\\fad(100,100)}}{ass_text(e['text'])}\n")
             for a, e, txt in untertitel_bloecke(p["woerter"]):
-                a, e = versatz + a, min(versatz + e, t0 + d)
+                a, e = v + a, min(v + e, gesamt)
                 ass.append(f"Dialogue: 0,{ass_zeit(a)},{ass_zeit(e)},Untertitel,,0,0,0,,{ass_text(txt)}\n")
                 srt.append(f"{len(srt) + 1}\n{zeit_srt(a)} --> {zeit_srt(e)}\n{txt}\n")
-            # Pop-ups zur Stimme
+            # Pop-ups zur Stimme (pro Icon optional x, y, groesse)
             pops = s.get("popup", [])
             for k, (pop, (x, y)) in enumerate(zip(pops, icon_positionen(len(pops), cfg["icon_groesse"]))):
-                ziel_wort = re.sub(r"\W", "", pop["wort"].lower())
-                treffer = [w for w in p["woerter"] if ziel_wort and ziel_wort in re.sub(r"\W", "", w["wort"].lower())]
-                zeit = versatz + (treffer[0]["start"] if treffer else 0.3 + k * 0.6)
-                popups.append(dict(datei=icon_pfad(pop["icon"]), t=zeit, ende=t0 + d, x=x, y=y))
+                wz = wort_zeit(p["woerter"], pop["wort"])
+                zeit = v + wz if wz is not None else t0 + 0.3 + k * 0.6
+                popups.append(dict(datei=icon_pfad(pop["icon"]), t=zeit, ende=t0 + d, x=pop.get("x", x),
+                                   y=pop.get("y", y), g=pop.get("groesse", cfg["icon_groesse"])))
 
-        gesamt = sum(p["d"] for p in plan)
         (tmp / "liste.txt").write_text("\n".join(vliste))
         ffmpeg("-f", "concat", "-safe", "0", "-i", str(tmp / "liste.txt"), "-c", "copy", str(tmp / "bild.mp4"))
-        eingabe = [x for a in aliste for x in ("-i", str(a))]
-        ffmpeg(*eingabe, "-filter_complex", "".join(f"[{i}:a]" for i in range(len(aliste))) +
-               f"concat=n={len(aliste)}:v=0:a=1[a]", "-map", "[a]", "-c:a", "pcm_s16le", str(tmp / "ton.wav"))
+        eingabe = [x for a in sliste for x in ("-i", str(a))]
+        ffmpeg(*eingabe, "-filter_complex", "".join(f"[{i}:a]" for i in range(len(sliste))) +
+               f"concat=n={len(sliste)}:v=0:a=1[a]", "-map", "[a]", "-c:a", "pcm_s16le", str(tmp / "sfx.wav"))
+        mische_ton(tmp / "sfx.wav", stimmen, gesamt, cfg, tmp / "ton.wav")
         (tmp / "text.ass").write_text("".join(ass), encoding="utf-8")
 
-        # Pop-ups (skalieren beim Erscheinen von 0 auf 115 % auf 100 %), dann Texte einbrennen
+        # Pop-ups (skalieren beim Erscheinen auf 115 % und zurück auf 100 %), dann Texte einbrennen
         eingabe = ["-i", str(tmp / "bild.mp4"), "-i", str(tmp / "ton.wav")]
-        f, letzte, g = "", "[0:v]", cfg["icon_groesse"]
+        f, letzte = "", "[0:v]"
         for k, pop in enumerate(popups):
             eingabe += ["-loop", "1", "-t", f"{gesamt:.3f}", "-i", str(pop["datei"])]
-            i = k + 2
+            i, g = k + 2, pop["g"]
             tt = f"(t-{pop['t']:.3f})"
             groesse = f"if(lt({tt},0),2,if(lt({tt},0.12),2+{g * 1.15 - 2:.1f}*{tt}/0.12,if(lt({tt},0.24),{g * 1.15:.1f}-{g * 0.15:.1f}*({tt}-0.12)/0.12,{g})))"
             f += f"[{i}:v]format=rgba,scale=w='{groesse}':h='{groesse}':eval=frame[i{k}];"

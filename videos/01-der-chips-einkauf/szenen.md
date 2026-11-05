@@ -29,7 +29,7 @@ _Automatisch erzeugt aus `thema.toml` – Änderungen bitte dort machen und neu 
 - **Pop-ups:** –
 - **Medien:** noch keine
 
-## 04. Der letzte Chip (fakt, ca. 24–34 s, Clip 8 s)
+## 04. Der letzte Chip (fakt, ca. 24–33 s, Clip 8 s)
 
 - **Bild (de):** Jack sitzt erschöpft zwischen leeren Tüten und isst den letzten Chip
 - **Sprechertext:** Empfohlen sind zwei Liter pro Person und Tag. Für zehn Tage also zwanzig Liter. Jack hat null Liter und sehr viel Salz.
@@ -38,7 +38,7 @@ _Automatisch erzeugt aus `thema.toml` – Änderungen bitte dort machen und neu 
 - **Pop-ups:** –
 - **Medien:** noch keine
 
-## 05. Die letzte Flasche (eskalation, ca. 34–42 s, Clip 8 s)
+## 05. Die letzte Flasche (eskalation, ca. 33–41 s, Clip 8 s)
 
 - **Bild (de):** Nachts im Supermarkt greift Jack nach der letzten Wasserflasche, ein großer Schatten gleitet über ihn
 - **Sprechertext:** Also zurück in den Supermarkt. Nur eine Flasche ist übrig. Und Jack ist nicht allein.
@@ -47,7 +47,7 @@ _Automatisch erzeugt aus `thema.toml` – Änderungen bitte dort machen und neu 
 - **Pop-ups:** –
 - **Medien:** noch keine
 
-## 06. Die Liste (schluss, ca. 42–52 s, Clip 10 s)
+## 06. Die Liste (schluss, ca. 41–51 s, Clip 10 s)
 
 - **Bild (de):** Jack mit Pflaster auf der Wange hakt auf einem Klemmbrett ab (Rückseite zur Kamera), über seinem Kopf ploppen Icons auf
 - **Sprechertext:** Damit dir das nicht passiert: sechs Liter Wasser pro Person, Konserven, deine Medikamente, ein Radio, eine Taschenlampe und Bargeld. Was fehlt bei dir?

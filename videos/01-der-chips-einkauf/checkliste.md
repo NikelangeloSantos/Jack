@@ -35,6 +35,6 @@ Automatische Prüfung beim letzten Bauen: keine Probleme gefunden
 - [ ] Flow-Clips: Nutzungsbedingungen von Google Flow für eigene Uploads geprüft
 
 ## Upload (machst du selbst)
-- [ ] Caption: Zombie-Apokalypse, Tag eins: Jack kauft nur Chips. Was fehlt in deinem Vorrat? 💧
+- [ ] Caption/Beschreibung: Zombie-Apokalypse, Tag eins: Jack kauft nur Chips. Was fehlt in deinem Vorrat? 💧
 - [ ] Hashtags: #zombieapokalypse #vorsorge #notvorrat #survival #wasser
 - [ ] Ergebnis in `log.md` eingetragen

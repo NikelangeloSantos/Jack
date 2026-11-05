@@ -24,7 +24,8 @@ VORLAGE = ROOT / "tools" / "vorlage-thema.toml"
 
 PAUSE = "[pause]"
 TEILE = ["hook", "falscher_plan", "fakt", "eskalation", "schluss"]
-WOERTER_PRO_SEKUNDE = 2.3  # Schätzung für einen ruhigen, alten Erzähler; nach Vertonung echte Zeiten
+WOERTER_PRO_SEKUNDE = 2.3  # nur für den Hook-Check
+ZEICHEN_PRO_SEKUNDE = 14.5  # Schätzung (deutsche Komposita!); nach der Vertonung gelten echte Zeiten
 SRT_WOERTER_PRO_ZEILE = 6
 NACHLAUF = 0.4             # Schätzung: Luft nach dem Sprechertext
 CLIP_ENDUNGEN = (".mp4", ".mov", ".webm", ".mkv")
@@ -115,7 +116,7 @@ class Mappe:
         """Geschätzte Zeiten: Szene dauert so lange wie der Clip, mindestens so lange wie die Stimme."""
         start = 0.0
         for s in self.szenen:
-            sprech = woerter(s.get("sprechertext", "")) / WOERTER_PRO_SEKUNDE
+            sprech = len(ohne_tags(s.get("sprechertext", ""))) / ZEICHEN_PRO_SEKUNDE
             s["_sprech"] = sprech
             d = max(float(s.get("clip_dauer", 8)), sprech + NACHLAUF)
             s["_start"], s["_ende"] = start, start + d
@@ -229,6 +230,8 @@ class Mappe:
             if len(s.get("booster", [])) > 1:
                 self.warnungen.append(f"Szene {nn}: mehr als 1 Booster – pro Clip eine Hauptaktion.")
             for feld in PROMPT_FELDER:
+                if self.v.get("nur_bibliothek"):
+                    break
                 if not f[feld]:
                     self.fehler.append(f"Szene {nn}: Feld '{feld}' ist leer.")
                 if re.search(r"\d", f[feld]):
@@ -244,6 +247,11 @@ class Mappe:
             if any(w in f["camera"].lower() for w in p["fest_kamera"]) and not s.get("kamera_fest_ok"):
                 self.warnungen.append(f"Szene {nn}: feste Kamera – nur wenn ein Clip sonst fehlerhaft war "
                                       "(dann kamera_fest_ok = true).")
+            for e in s.get("einblendungen", []):
+                if e.get("wort") and e["wort"].lower() not in s["_text"].lower():
+                    self.fehler.append(f"Szene {nn}: Einblend-Wort '{e['wort']}' kommt im Sprechertext nicht vor.")
+            if self.v.get("nur_bibliothek") and not self.medien_fuer(s):
+                self.fehler.append(f"Szene {nn}: nur_bibliothek, aber keine medien angegeben.")
             namen = self.b["icons"]["namen"]
             for pop in s.get("popup", []):
                 if pop.get("icon") not in namen:
@@ -292,6 +300,10 @@ class Mappe:
                      f"**Überlebenschance:** {s.get('chance', '–')} %\n\n")
             if s.get("einblendtext"):
                 z.append(f"**Einblendung:** {s['einblendtext']}\n\n")
+            if s.get("einblendungen"):
+                z.append("**Einblendungen nacheinander:** " + " → ".join(f"„{e['text']}“" for e in s["einblendungen"]) + "\n\n")
+            if s.get("medien"):
+                z.append(f"**Clip:** {', '.join(f'`{x}`' for x in self.medien_fuer(s))}\n\n")
             if s.get("popup"):
                 z.append("**Pop-ups (zur Stimme):** " + ", ".join(f"{p['icon']} bei „{p['wort']}“" for p in s["popup"]) + "\n\n")
         (o / "skript.md").write_text("".join(z), encoding="utf-8")
@@ -303,12 +315,23 @@ class Mappe:
                      f"- **Bild (de):** {s.get('bild_de', '')}\n"
                      f"- **Sprechertext:** {s.get('sprechertext', '').strip()}\n"
                      f"- **Überlebenschance:** {s.get('chance', '–')} %\n"
-                     f"- **Einblendtext:** {s.get('einblendtext', '') or '–'}\n"
+                     f"- **Einblendtext:** {' → '.join([s['einblendtext']] if s.get('einblendtext') else [e['text'] for e in s.get('einblendungen', [])]) or '–'}\n"
                      f"- **Pop-ups:** {', '.join(p['icon'] + ' @ ' + p['wort'] for p in s.get('popup', [])) or '–'}\n"
                      f"- **Medien:** {', '.join(self.medien_fuer(s)) or 'noch keine'}\n\n")
         (o / "szenen.md").write_text("".join(z), encoding="utf-8")
 
         # prompts.md
+        if v.get("nur_bibliothek"):
+            z = [self.kopf("Flow-Prompts"), "Diese Folge nutzt nur vorhandene Clips aus `bibliothek/clips/` – keine neuen Flow-Clips.\n\n"]
+            z += [f"- Szene {s['_nn']} {s.get('name', '')}: {', '.join(f'`{x}`' for x in self.medien_fuer(s))}"
+                  + (f" – {s['hinweis_schnitt']}" if s.get("hinweis_schnitt") else "") + "\n" for s in self.szenen]
+            (o / "prompts.md").write_text("".join(z), encoding="utf-8")
+        else:
+            self._schreibe_prompts()
+        self._schreibe_rest()
+
+    def _schreibe_prompts(self):
+        v, o = self.v, self.ordner
         z = [self.kopf("Flow-Prompts"),
              f"Referenzbild bei jedem Prompt mit hochladen: `{v.get('referenzbild', 'TODO')}`\n\n",
              "Kein Text in Flow: Schrift, Zahlen, Überlebenschance und Pop-up-Icons kommen im Schnitt dazu.\n\n"]
@@ -322,6 +345,9 @@ class Mappe:
                  "ergänzen und neu bauen. Verfügbar:\n\n")
         z += [f"- `{k}`: {t}\n" for k, t in self.b["korrektur"].items()]
         (o / "prompts.md").write_text("".join(z), encoding="utf-8")
+
+    def _schreibe_rest(self):
+        v, o = self.v, self.ordner
 
         # faktencheck.md
         z = [self.kopf("Faktencheck"),
@@ -368,7 +394,8 @@ class Mappe:
         (o / "untertitel.srt").write_text("\n".join(srt), encoding="utf-8")
         ein, nr = [], 1
         for s in self.szenen:
-            for txt in [f"Überlebenschance: {s.get('chance', '?')} %"] + ([s["einblendtext"]] if s.get("einblendtext") else []):
+            extra = ([s["einblendtext"]] if s.get("einblendtext") else []) + [e["text"] for e in s.get("einblendungen", [])]
+            for txt in [f"Überlebenschance: {s.get('chance', '?')} %"] + extra:
                 ein.append(f"{nr}\n{zeit_srt(s['_start'])} --> {zeit_srt(s['_ende'])}\n{txt}\n")
                 nr += 1
         (o / "einblendungen.srt").write_text("\n".join(ein), encoding="utf-8")
@@ -378,6 +405,9 @@ class Mappe:
         (o / "voiceover.txt").write_text(vo + "\n", encoding="utf-8")
 
         # hochladen.md: welche Clips noch fehlen
+        if v.get("nur_bibliothek"):
+            (o / "hochladen.md").write_text(self.kopf("Hochladen") + "Nichts hochzuladen: diese Folge nutzt nur Clips aus `bibliothek/clips/`.\n", encoding="utf-8")
+            return self._schreibe_checkliste()
         z = [self.kopf("Hochladen"), "Clips aus Flow nach `eingang/` hochladen, mit genau diesen Namen:\n\n",
              "| Szene | Datei | Länge | Status |\n|---|---|---|---|\n"]
         for s in self.szenen:
@@ -385,6 +415,10 @@ class Mappe:
             z.append(f"| {s['_nn']} {s.get('name', '')} | `eingang/{v.get('nummer', '00')}-szene-{s['_nn']}.mp4` | "
                      f"{s.get('clip_dauer', 8)} s | {'✅ ' + ', '.join(m) if m else 'fehlt'} |\n")
         (o / "hochladen.md").write_text("".join(z), encoding="utf-8")
+        self._schreibe_checkliste()
+
+    def _schreibe_checkliste(self):
+        v, o = self.v, self.ordner
 
         # checkliste.md (immer manuell)
         auto = "".join(f"  - ❌ {x}\n" for x in self.fehler) + "".join(f"  - ⚠️ {x}\n" for x in self.warnungen)
@@ -422,7 +456,7 @@ Automatische Prüfung beim letzten Bauen: {"keine Probleme gefunden" if not auto
 - [ ] Flow-Clips: Nutzungsbedingungen von Google Flow für eigene Uploads geprüft
 
 ## Upload (machst du selbst)
-- [ ] Caption: {v.get('caption', '')}
+- [ ] Caption/Beschreibung: {v.get('caption', '')}
 - [ ] Hashtags: {tags}
 - [ ] Ergebnis in `log.md` eingetragen
 """, encoding="utf-8")

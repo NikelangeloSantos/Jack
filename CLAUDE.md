@@ -118,4 +118,4 @@ pro Szene `vorlauf`, `nachlauf`, `kuerzen = true`, `medien = ["pfad#von-bis"]`.
 
 ## 9. Stand
 
-Siehe `log.md`. Folge 01 „Der Chips-Einkauf“: Mappe fertig, Clips vom Nutzer ausstehend (`videos/01-der-chips-einkauf/hochladen.md`).
+Siehe `log.md`. Folge 01 „Der Chips-Einkauf“: Mappe fertig, Clips vom Nutzer ausstehend. Folge 02 „Die ersten 3 Tage“ (nur Bibliotheksclips, `nur_bibliothek = true`): Probeschnitt fertig, Vertonung wartet auf Freigabe.
