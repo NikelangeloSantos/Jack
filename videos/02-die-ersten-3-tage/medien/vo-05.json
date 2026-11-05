@@ -1,0 +1,82 @@
+{
+ "dauer": 8.516,
+ "sprech_start": 0.145,
+ "sprech_ende": 8.342,
+ "woerter": [
+  {
+   "wort": "Und",
+   "start": 0.145,
+   "ende": 0.4
+  },
+  {
+   "wort": "ein",
+   "start": 0.505,
+   "ende": 0.656
+  },
+  {
+   "wort": "Radio.",
+   "start": 0.737,
+   "ende": 1.434
+  },
+  {
+   "wort": "Fallen",
+   "start": 1.782,
+   "ende": 2.153
+  },
+  {
+   "wort": "Internet",
+   "start": 2.235,
+   "ende": 2.722
+  },
+  {
+   "wort": "und",
+   "start": 2.792,
+   "ende": 2.885
+  },
+  {
+   "wort": "Mobilfunk",
+   "start": 2.943,
+   "ende": 3.512
+  },
+  {
+   "wort": "aus,",
+   "start": 3.57,
+   "ende": 3.999
+  },
+  {
+   "wort": "funktionieren",
+   "start": 4.116,
+   "ende": 4.928
+  },
+  {
+   "wort": "Warn-Apps",
+   "start": 5.114,
+   "ende": 5.834
+  },
+  {
+   "wort": "nicht",
+   "start": 5.892,
+   "ende": 6.101
+  },
+  {
+   "wort": "mehr,",
+   "start": 6.159,
+   "ende": 6.565
+  },
+  {
+   "wort": "Radiosender",
+   "start": 6.728,
+   "ende": 7.529
+  },
+  {
+   "wort": "aber",
+   "start": 7.599,
+   "ende": 7.854
+  },
+  {
+   "wort": "schon.",
+   "start": 7.889,
+   "ende": 8.342
+  }
+ ]
+}

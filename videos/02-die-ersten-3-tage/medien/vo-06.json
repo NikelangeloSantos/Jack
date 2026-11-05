@@ -1,0 +1,82 @@
+{
+ "dauer": 7.877,
+ "sprech_start": 0.174,
+ "sprech_ende": 7.674,
+ "woerter": [
+  {
+   "wort": "Dazu",
+   "start": 0.174,
+   "ende": 0.476
+  },
+  {
+   "wort": "eine",
+   "start": 0.534,
+   "ende": 0.72
+  },
+  {
+   "wort": "Taschenlampe",
+   "start": 0.778,
+   "ende": 1.463
+  },
+  {
+   "wort": "mit",
+   "start": 1.509,
+   "ende": 1.625
+  },
+  {
+   "wort": "Ersatzbatterien",
+   "start": 1.695,
+   "ende": 2.589
+  },
+  {
+   "wort": "und",
+   "start": 2.693,
+   "ende": 2.809
+  },
+  {
+   "wort": "Bargeld,",
+   "start": 2.879,
+   "ende": 3.576
+  },
+  {
+   "wort": "denn",
+   "start": 3.68,
+   "ende": 3.843
+  },
+  {
+   "wort": "ohne",
+   "start": 3.924,
+   "ende": 4.202
+  },
+  {
+   "wort": "Strom",
+   "start": 4.249,
+   "ende": 4.632
+  },
+  {
+   "wort": "gehen",
+   "start": 4.702,
+   "ende": 4.899
+  },
+  {
+   "wort": "Kartenzahlung",
+   "start": 4.969,
+   "ende": 5.874
+  },
+  {
+   "wort": "und",
+   "start": 6.095,
+   "ende": 6.269
+  },
+  {
+   "wort": "Geldautomat",
+   "start": 6.338,
+   "ende": 7.209
+  },
+  {
+   "wort": "nicht.",
+   "start": 7.267,
+   "ende": 7.674
+  }
+ ]
+}

@@ -1,84 +1,84 @@
 1
-00:00:00,000 --> 00:00:01,286
+00:00:00,000 --> 00:00:01,594
 Zombie-Apokalypse.
 
 2
-00:00:01,286 --> 00:00:03,886
+00:00:01,614 --> 00:00:03,767
 Die ersten drei Tage
 entscheiden.
 
 3
-00:00:03,786 --> 00:00:05,885
+00:00:03,787 --> 00:00:06,204
 Das Wichtigste zuerst: Wasser.
 
 4
-00:00:05,885 --> 00:00:07,810
+00:00:06,224 --> 00:00:07,949
 Sechs Liter pro Person.
 
 5
-00:00:07,750 --> 00:00:10,481
+00:00:07,969 --> 00:00:10,457
 Dann Essen, das ohne Herd
 funktioniert.
 
 6
-00:00:10,481 --> 00:00:12,120
+00:00:10,477 --> 00:00:12,001
 Chips zählen nur knapp.
 
 7
-00:00:12,120 --> 00:00:13,417
+00:00:12,021 --> 00:00:13,592
 Besser: Konserven.
 
 8
-00:00:13,417 --> 00:00:14,878
+00:00:13,612 --> 00:00:15,015
 Mit Dosenöffner.
 
 9
-00:00:15,680 --> 00:00:18,946
+00:00:15,680 --> 00:00:18,848
 Deine Medikamente und
 Erste-Hilfe-Material.
 
 10
-00:00:23,610 --> 00:00:24,635
+00:00:23,610 --> 00:00:25,227
 Und ein Radio.
 
 11
-00:00:24,635 --> 00:00:28,667
+00:00:25,247 --> 00:00:29,337
 Fallen Internet und Mobilfunk
 aus, funktionieren Warn-Apps
 
 12
-00:00:28,667 --> 00:00:31,427
+00:00:29,357 --> 00:00:31,987
 nicht mehr, Radiosender aber
 schon.
 
 13
-00:00:31,540 --> 00:00:35,368
+00:00:32,007 --> 00:00:35,493
 Dazu eine Taschenlampe mit
 Ersatzbatterien und Bargeld,
 
 14
-00:00:35,368 --> 00:00:38,924
+00:00:35,513 --> 00:00:39,080
 denn ohne Strom gehen
 Kartenzahlung und Geldautomat
 
 15
-00:00:38,924 --> 00:00:39,702
+00:00:39,100 --> 00:00:39,687
 nicht.
 
 16
-00:00:41,503 --> 00:00:45,201
+00:00:39,707 --> 00:00:43,112
 Zu Hause dann: Wichtige
 Nummern auf Papier schreiben,
 
 17
-00:00:45,201 --> 00:00:49,172
+00:00:43,132 --> 00:00:46,966
 Dokumente griffbereit legen,
 mit den Nachbarn absprechen.
 
 18
-00:00:49,172 --> 00:00:49,720
+00:00:46,986 --> 00:00:48,000
 Und du?
 
 19
-00:00:49,720 --> 00:00:51,389
+00:00:48,020 --> 00:00:49,550
 Was fehlt dir noch?

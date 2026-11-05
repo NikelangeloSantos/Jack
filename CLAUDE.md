@@ -102,11 +102,16 @@ Ablauf pro Video: `jack.py neu` → thema.toml ausfüllen → `jack.py baue` →
 Kosten) → `schnitt.py --plan`, dann `schnitt.py` → Ergebnis in `fertig/` → Nutzer prüft `checkliste.md` und lädt hoch.
 
 **Schnitt-Regeln (anders als Brokey):** Flow-Clips laufen möglichst vollständig, **keine schnellen Zoom-Ausschnitte**.
-Szene = Cliplänge, mindestens Stimme + Nachlauf; ist die Stimme länger, Clip bis 0,85-fach verlangsamen, dann letztes
-Bild halten. Clip-Ton leise unter der Stimme (`clip_ton`, plus Ducking). **Pop-ups erscheinen genau beim
+**Clips nie auffällig verlangsamen oder dehnen** (Nutzer). Szene = Cliplänge; die Stimme ist eine durchgehende Spur und darf
+bis 1,5 s in die nächste Szene laufen (`max_ueberhang`) oder mit `vorziehen` vor dem Schnitt beginnen. Passt ein Text
+trotzdem nicht, meldet der Plan „TEXT ZU LANG“ → dem Nutzer eine Kürzung vorschlagen, **Text nie ohne Rückfrage ändern**. Clip-Ton leise unter der Stimme (`clip_ton`, plus Ducking). **Pop-ups erscheinen genau beim
 gesprochenen Wort** (Wort-Zeitstempel aus vo-NN.json). Ohne Stimme: geschätzte Zeiten, Ausgabe nach `output/`.
 Optionen in thema.toml: `[video] clip_ton, vorlauf, nachlauf, clip_min_tempo, einblend_dauer, ducking`,
-pro Szene `vorlauf`, `nachlauf`, `kuerzen = true`, `medien = ["pfad#von-bis"]`.
+pro Szene `vorlauf`, `nachlauf`, `vorziehen`, `ueberhang = false`, `kuerzen = true`, `medien = ["pfad#von-bis"]`,
+`einblendungen = [{text, wort}]` (nacheinander zum Wort), `texte_unten = true` (wenn oben Icons im Clip eingebrannt sind),
+Pop-ups mit `x`, `y`, `groesse`. Folgen nur aus Bibliotheksclips: `[video] nur_bibliothek = true`.
+Vor dem Schneiden **jeden Clip selbst ansehen** (Standbilder im 0,5-s-Raster, an Problemstellen 0,1 s) und den Katalog
+beachten bzw. ergänzen. Nach dem Rendern Standbilder zu den Wortzeiten prüfen (Icons, Texte, Untertitel-Überdeckung).
 
 ## 8. Stimme (ElevenLabs)
 
@@ -114,8 +119,10 @@ pro Szene `vorlauf`, `nachlauf`, `kuerzen = true`, `medien = ["pfad#von-bis"]`.
 - Doku gelesen 2026-11-05: Audio-Tags (`[sarcastic]`, `[sighs]`, `[whispers]` …) nur mit `eleven_v4`, `eleven_v4_turbo`,
   `eleven_v3`. **Nicht** mit `eleven_multilingual_v2` (dort entfernt `vertonung.py` die Tags vor dem Senden).
   `eleven_v4`: keine Speed-/Style-Regler, kein SSML. Speed sonst 0,7–1,2. Der Tag heißt in der Doku `[sarcastic]`.
-- Modell und Tempo: Ergebnis des Probe-Tests steht in `log.md` und `bausteine/stimme.toml`.
+- **Gewählt (Probe 2026-11-05):** `eleven_multilingual_v2`, speed 1.1. Georg spricht bei Tempo 1.0 nur ca. 13 Zeichen/s;
+  nur v2 erlaubt höheres Tempo. Proben in `proben/`. `eleven_v4` klang gleich schnell, Alternative für Audio-Tags.
+  Faustregel für Texte: ca. 14 Zeichen pro Sekunde Clip (bei speed 1.1).
 
 ## 9. Stand
 
-Siehe `log.md`. Folge 01 „Der Chips-Einkauf“: Mappe fertig, Clips vom Nutzer ausstehend. Folge 02 „Die ersten 3 Tage“ (nur Bibliotheksclips, `nur_bibliothek = true`): Probeschnitt fertig, Vertonung wartet auf Freigabe.
+Siehe `log.md`. Folge 01 „Der Chips-Einkauf“: Mappe fertig, Clips vom Nutzer ausstehend. Folge 02 „Die ersten 3 Tage“ (nur Bibliotheksclips): **fertig** in `fertig/jack-02-die-ersten-3-tage.mp4` (49,8 s), nicht veröffentlicht.

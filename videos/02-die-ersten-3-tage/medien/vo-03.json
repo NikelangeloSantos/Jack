@@ -1,0 +1,77 @@
+{
+ "dauer": 7.036,
+ "sprech_start": 0.145,
+ "sprech_ende": 6.891,
+ "woerter": [
+  {
+   "wort": "Dann",
+   "start": 0.145,
+   "ende": 0.377
+  },
+  {
+   "wort": "Essen,",
+   "start": 0.459,
+   "ende": 0.83
+  },
+  {
+   "wort": "das",
+   "start": 0.853,
+   "ende": 0.993
+  },
+  {
+   "wort": "ohne",
+   "start": 1.074,
+   "ende": 1.283
+  },
+  {
+   "wort": "Herd",
+   "start": 1.341,
+   "ende": 1.55
+  },
+  {
+   "wort": "funktioniert.",
+   "start": 1.596,
+   "ende": 2.363
+  },
+  {
+   "wort": "Chips",
+   "start": 2.653,
+   "ende": 2.943
+  },
+  {
+   "wort": "zählen",
+   "start": 3.001,
+   "ende": 3.315
+  },
+  {
+   "wort": "nur",
+   "start": 3.338,
+   "ende": 3.466
+  },
+  {
+   "wort": "knapp.",
+   "start": 3.512,
+   "ende": 3.907
+  },
+  {
+   "wort": "Besser:",
+   "start": 4.197,
+   "ende": 4.673
+  },
+  {
+   "wort": "Konserven.",
+   "start": 4.812,
+   "ende": 5.602
+  },
+  {
+   "wort": "Mit",
+   "start": 5.788,
+   "ende": 5.95
+  },
+  {
+   "wort": "Dosenöffner.",
+   "start": 6.008,
+   "ende": 6.891
+  }
+ ]
+}

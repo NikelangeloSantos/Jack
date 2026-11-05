@@ -108,8 +108,8 @@ Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour,
 Style: Untertitel,Inter ExtraBold,66,&H00FFFFFF,&H00FFFFFF,&H00101010,&H90000000,0,0,0,0,100,100,0,0,1,6,3,2,80,80,430,1
 Style: Chance,Inter Black,56,&H00FFFFFF,&H00FFFFFF,&H00141414,&HC8141414,0,0,0,0,100,100,0,0,3,18,0,8,60,60,190,1
 Style: Einblendung,Inter Black,62,&H00141414,&H00141414,&H0050D8F5,&H00000000,0,0,0,0,100,100,0,0,3,14,0,8,80,80,330,1
-Style: ChanceU,Inter Black,56,&H00FFFFFF,&H00FFFFFF,&H00141414,&HC8141414,0,0,0,0,100,100,0,0,3,18,0,2,60,60,760,1
-Style: EinblendungU,Inter Black,62,&H00141414,&H00141414,&H0050D8F5,&H00000000,0,0,0,0,100,100,0,0,3,14,0,2,80,80,640,1
+Style: ChanceU,Inter Black,56,&H00FFFFFF,&H00FFFFFF,&H00141414,&HC8141414,0,0,0,0,100,100,0,0,3,18,0,2,60,60,900,1
+Style: EinblendungU,Inter Black,62,&H00141414,&H00141414,&H0050D8F5,&H00000000,0,0,0,0,100,100,0,0,3,14,0,2,80,80,780,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -391,7 +391,7 @@ def schneide(ordner: Path, nur_plan: bool = False, ausgabe: Path | None = None, 
     with (tempfile.TemporaryDirectory() if arbeit is None else _Ordner(arbeit)) as tmp:
         tmp = Path(tmp)
         vliste, sliste, stimmen = [], [], []
-        ass, srt, alt, popups = [ASS_KOPF], [], None, []
+        ass, srt, alt, popups, ut = [ASS_KOPF], [], None, [], []
         for p in plan:
             s, d, t0 = p["s"], p["d"], p["start"]
             medien = p["medien"]
@@ -422,23 +422,28 @@ def schneide(ordner: Path, nur_plan: bool = False, ausgabe: Path | None = None, 
             zeiten = []
             for k, e in enumerate(folge):
                 wz = wort_zeit(p["woerter"], e.get("wort", "")) if e.get("wort") else None
-                zeiten.append(v + wz if wz is not None else t0 + 0.3 + k * 1.5)
+                zeiten.append(max(t0 + 0.1, v + wz) if wz is not None else t0 + 0.3 + k * 1.5)  # nie vor der eigenen Szene
             for k, e in enumerate(folge):
                 bis = zeiten[k + 1] if k + 1 < len(folge) else t0 + d
                 ass.append(f"Dialogue: 1,{ass_zeit(zeiten[k])},{ass_zeit(bis)},Einblendung{unten},,0,0,0,,"
                            f"{{\\fad(100,100)}}{ass_text(e['text'])}\n")
             for a, e, txt in untertitel_bloecke(p["woerter"]):
-                a, e = v + a, min(v + e, gesamt)
-                ass.append(f"Dialogue: 0,{ass_zeit(a)},{ass_zeit(e)},Untertitel,,0,0,0,,{ass_text(txt)}\n")
-                srt.append(f"{len(srt) + 1}\n{zeit_srt(a)} --> {zeit_srt(e)}\n{txt}\n")
+                ut.append((v + a, min(v + e, gesamt), txt))
             # Pop-ups zur Stimme (pro Icon optional x, y, groesse)
             pops = s.get("popup", [])
             for k, (pop, (x, y)) in enumerate(zip(pops, icon_positionen(len(pops), cfg["icon_groesse"]))):
                 wz = wort_zeit(p["woerter"], pop["wort"])
-                zeit = v + wz if wz is not None else t0 + 0.3 + k * 0.6
+                zeit = max(t0 + 0.1, v + wz) if wz is not None else t0 + 0.3 + k * 0.6
                 popups.append(dict(datei=icon_pfad(pop["icon"]), t=zeit, ende=t0 + d, x=pop.get("x", x),
                                    y=pop.get("y", y), g=pop.get("groesse", cfg["icon_groesse"])))
 
+        # Untertitel dürfen sich nie überschneiden (sonst schiebt libass die neue Zeile dauerhaft nach oben)
+        ut.sort()
+        for k, (a, e, txt) in enumerate(ut):
+            if k + 1 < len(ut):
+                e = min(e, ut[k + 1][0] - 0.02)
+            ass.append(f"Dialogue: 0,{ass_zeit(a)},{ass_zeit(e)},Untertitel,,0,0,0,,{ass_text(txt)}\n")
+            srt.append(f"{len(srt) + 1}\n{zeit_srt(a)} --> {zeit_srt(e)}\n{txt}\n")
         (tmp / "liste.txt").write_text("\n".join(vliste))
         ffmpeg("-f", "concat", "-safe", "0", "-i", str(tmp / "liste.txt"), "-c", "copy", str(tmp / "bild.mp4"))
         eingabe = [x for a in sliste for x in ("-i", str(a))]

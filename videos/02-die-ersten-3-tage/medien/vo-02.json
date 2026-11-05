@@ -1,0 +1,47 @@
+{
+ "dauer": 4.302,
+ "sprech_start": 0.175,
+ "sprech_ende": 4.157,
+ "woerter": [
+  {
+   "wort": "Das",
+   "start": 0.175,
+   "ende": 0.372
+  },
+  {
+   "wort": "Wichtigste",
+   "start": 0.429,
+   "ende": 0.905
+  },
+  {
+   "wort": "zuerst:",
+   "start": 0.976,
+   "ende": 1.625
+  },
+  {
+   "wort": "Wasser.",
+   "start": 1.788,
+   "ende": 2.357
+  },
+  {
+   "wort": "Sechs",
+   "start": 2.612,
+   "ende": 2.926
+  },
+  {
+   "wort": "Liter",
+   "start": 2.984,
+   "ende": 3.24
+  },
+  {
+   "wort": "pro",
+   "start": 3.298,
+   "ende": 3.437
+  },
+  {
+   "wort": "Person.",
+   "start": 3.506,
+   "ende": 4.157
+  }
+ ]
+}

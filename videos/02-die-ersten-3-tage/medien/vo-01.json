@@ -1,0 +1,37 @@
+{
+ "dauer": 3.761,
+ "sprech_start": 0.0,
+ "sprech_ende": 3.587,
+ "woerter": [
+  {
+   "wort": "Zombie-Apokalypse.",
+   "start": 0.0,
+   "ende": 1.358
+  },
+  {
+   "wort": "Die",
+   "start": 1.614,
+   "ende": 1.8
+  },
+  {
+   "wort": "ersten",
+   "start": 1.869,
+   "ende": 2.206
+  },
+  {
+   "wort": "drei",
+   "start": 2.241,
+   "ende": 2.461
+  },
+  {
+   "wort": "Tage",
+   "start": 2.519,
+   "ende": 2.856
+  },
+  {
+   "wort": "entscheiden.",
+   "start": 2.891,
+   "ende": 3.587
+  }
+ ]
+}
